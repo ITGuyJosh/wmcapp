@@ -78,7 +78,7 @@ public class AddJobs extends AppCompatActivity {
                         z = "Error in connection with SQL server.";
                     } else {
                         //refactor around this element
-                        String query = "INSERT INTO jobs (user_id, title, description, skills, status) VALUES ('" + userid + "','" + jobtitle + "','" + jobdesc + "','" + jobskills + "','1')";
+                        String query = "INSERT INTO jobs (user_id, title, description, skills, active) VALUES ('" + userid + "','" + jobtitle + "','" + jobdesc + "','" + jobskills + "','1')";
                         PreparedStatement myQuery = conn.prepareStatement(query);
                         myQuery.executeUpdate();
                         z = "Job Added!";

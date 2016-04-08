@@ -18,6 +18,7 @@ import android.widget.Toast;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -49,6 +50,7 @@ public class ApplyForJob extends AppCompatActivity {
         txtSkills = (TextView) findViewById(R.id.txtSkills);
         txtDesc = (TextView) findViewById(R.id.txtDesc);
         btnContact = (Button)findViewById(R.id.btnContact);
+        btnApply = (Button)findViewById(R.id.btnApply);
 
         // Set pbar to invisible
         pbbar.setVisibility(View.GONE);
@@ -59,6 +61,9 @@ public class ApplyForJob extends AppCompatActivity {
         toolbar.setTitle("WMC EXP Helper");
         setSupportActionBar(toolbar);
 
+        //run functions
+        ListJobs getJob = new ListJobs();
+        getJob.execute();
 
         //set button events
         btnContact.setOnClickListener(new View.OnClickListener() {
@@ -71,9 +76,16 @@ public class ApplyForJob extends AppCompatActivity {
             }
         });
 
-        //run functions
-        ListJobs getJob = new ListJobs();
-        getJob.execute();
+        btnApply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Async application button
+                ApplyJob applyJob = new ApplyJob();
+                applyJob.execute("");
+            }
+        });
+
+
 
 
     }
@@ -132,26 +144,85 @@ public class ApplyForJob extends AppCompatActivity {
         }
     }
 
+    //Async task for adding that the student applied for the job
+    public class ApplyJob extends AsyncTask<String, String, String>{
+        String message = "";
+        Boolean isSuccess = false;
+
+        @Override
+        protected  void onPreExecute(){
+            pbbar.setVisibility(View.VISIBLE);
+        }
+
+        // end message
+        @Override
+        protected void onPostExecute(String r){
+            pbbar.setVisibility(View.GONE);
+            Toast.makeText(getApplicationContext(), r, Toast.LENGTH_LONG).show();
+        }
+
+        // background task
+        @Override
+        protected String doInBackground(String... params) {
+
+            try{
+                Connection conn = dataConn.CONN();
+                if(conn == null) {
+                    message = "Error with server connection.";
+                }else {
+                    String query = "INSERT INTO job_applications (user_id, job_id, status) VALUES ('" + userid + "','" + jobid + "','1')";
+                    PreparedStatement myQuery = conn.prepareStatement(query);
+                    myQuery.executeUpdate();
+
+                    message = "Application successful! Please check your status on the main menu.";
+                    isSuccess = true;
+
+                }
+            }catch (Exception ex){
+                isSuccess = false;
+                message = "Exceptions Generated";
+            }
+
+            return message;
+        }
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_apply_for_job, menu);
+        // Loading up main menu
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        //switch case options menu
+        switch (item.getItemId()) {
+            case R.id.settings_about:
+                // About option clicked.
+                Intent i = new Intent(getApplicationContext(), HelpScreen.class);
+                startActivity(i);
+                return true;
+            case R.id.settings_help:
+                // Help option clicked.
+                Intent j = new Intent(getApplicationContext(), Email.class);
+                j.putExtra("helpClicked", 1);
+                startActivity(j);
+                return true;
+            case R.id.settings_affiliates:
+                // Affiliates option clicked.
+                Intent k = new Intent(getApplicationContext(), Affiliates.class);
+                startActivity(k);
+                return true;
+            case R.id.settings_logout:
+                // Logout option clicked.
+                Intent l = new Intent(getApplicationContext(), Login.class);
+                startActivity(l);
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-
-        return super.onOptionsItemSelected(item);
     }
 }
