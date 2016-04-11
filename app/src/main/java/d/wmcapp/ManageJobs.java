@@ -5,11 +5,14 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.SimpleAdapter;
@@ -19,6 +22,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +37,7 @@ public class ManageJobs extends AppCompatActivity {
     Integer userid;
     ProgressBar pbbar;
     Toolbar toolbar;
+    EditText searchJobs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +50,7 @@ public class ManageJobs extends AppCompatActivity {
         listJobs = (ListView)findViewById(R.id.listAllJobs);
         userid = getIntent().getExtras().getInt("userid");
         pbbar = (ProgressBar)findViewById(R.id.pbbar);
-
-        // Set pbar to invisible
-        pbbar.setVisibility(View.GONE);
+        searchJobs = (EditText) findViewById(R.id.searchJobs);
 
         //setting custom toolbar
         toolbar = (Toolbar) findViewById(R.id.app_bar);
@@ -72,6 +76,14 @@ public class ManageJobs extends AppCompatActivity {
     }
 
 
+    // comparator for use in comparing the data for sorting
+    // selecting that  the status is the one that should be sorted
+    public Comparator<Map<String, String>> mapComparator = new Comparator<Map<String, String>>() {
+        public int compare(Map<String, String> m1, Map<String, String> m2) {
+            return m1.get("B").compareTo(m2.get("B"));
+        }
+    };
+
     public class ListJobs extends AsyncTask<String, String, String> {
 
         //to refactor make new class
@@ -94,6 +106,10 @@ public class ManageJobs extends AppCompatActivity {
             pbbar.setVisibility(View.GONE);  // Once everything is done set the visibility of the progress bar to invisible
             Toast.makeText(ManageJobs.this, r, Toast.LENGTH_SHORT).show(); //Post the string r which contains info about what has happened.
             String[] from={"A","B"}; // An array of strings we use to reference our map.
+
+            // sorting algorithm to sort by
+            Collections.sort(joblist, mapComparator);
+
             int[] views = {R.id.lbljobid,R.id.lbljobtitle}; //an array of insts that reference the ids for our labels.
             final SimpleAdapter ADA = new SimpleAdapter(ManageJobs.this,joblist,R.layout.all_jobs_list,from,views);
             listJobs.setAdapter(ADA); // The list adapter we're going to use to convert our arrays into the listview.
@@ -103,6 +119,25 @@ public class ManageJobs extends AppCompatActivity {
                     HashMap<String, Object> obj = (HashMap<String, Object>) ADA.getItem(position); //Hashmap links strings with objectss
                     String jobID = (String) obj.get("A");
                     String jobTitle = (String) obj.get("B");
+                }
+            });
+
+
+            //search functionality
+            searchJobs.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                    ADA.getFilter().filter(s.toString());
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
                 }
             });
         }

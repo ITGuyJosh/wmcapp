@@ -40,6 +40,21 @@
         android:textSize="20sp"
         android:textStyle="bold" />
 
+        <EditText
+            android:id="@+id/searchJobs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="#5d5d5d"
+            android:hint="SEARCH"
+            android:padding="6dp"
+            android:textColor="#ffffff"
+            android:textColorHint="#ffffff"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:singleLine="true"
+            />
+
     <ProgressBar
         android:id="@+id/pbbar"
         android:layout_width="wrap_content"

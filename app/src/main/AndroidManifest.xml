@@ -27,7 +27,8 @@
         </activity>
         <activity
             android:name=".Login"
-            android:label="@string/title_activity_login" >
+            android:label="@string/title_activity_login"
+            android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
             android:name=".AddJobs"
@@ -35,7 +36,8 @@
         </activity>
         <activity
             android:name=".ViewJobs"
-            android:label="@string/title_activity_view_jobs" >
+            android:label="@string/title_activity_view_jobs"
+            android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
             android:name=".Register"
@@ -47,7 +49,9 @@
         </activity>
         <activity
             android:name=".ManageJobs"
-            android:label="@string/title_activity_manage_jobs" >
+            android:label="@string/title_activity_manage_jobs"
+            android:windowSoftInputMode="stateHidden" >
+>
         </activity>
         <activity
             android:name=".ManageProfile"
@@ -59,7 +63,8 @@
         </activity>
         <activity
             android:name=".AppStatus"
-            android:label="@string/title_activity_app_status" >
+            android:label="@string/title_activity_app_status"
+            android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
             android:name=".ApplyForJob"
@@ -76,6 +81,15 @@
         <activity
             android:name=".Affiliates"
             android:label="@string/title_activity_affiliates" >
+        </activity>
+        <activity
+            android:name=".ReviewApps"
+            android:label="@string/title_activity_review_apps" >
+        </activity>
+        <activity
+            android:name=".StudentInfo"
+            android:label="@string/title_activity_student_info"
+            android:windowSoftInputMode="stateHidden">
         </activity>
     </application>
 

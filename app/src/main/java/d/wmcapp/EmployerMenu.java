@@ -11,7 +11,7 @@ import android.widget.Button;
 
 public class EmployerMenu extends AppCompatActivity {
 
-    Button btnMngJobs, btnMngProfile;
+    Button btnMngJobs, btnMngProfile,btnReviewApps;
     Integer userid;
     Toolbar toolbar;
 
@@ -23,6 +23,7 @@ public class EmployerMenu extends AppCompatActivity {
         //intialise
         btnMngJobs = (Button)findViewById(R.id.btnMngJobs);
         btnMngProfile = (Button)findViewById(R.id.btnMngProfile);
+        btnReviewApps = (Button)findViewById(R.id.btnAwaitRev);
         userid = getIntent().getExtras().getInt("userid");
 
         //setting custom toolbar
@@ -48,6 +49,16 @@ public class EmployerMenu extends AppCompatActivity {
                 //opening registration activity
                 Intent i = new Intent(EmployerMenu.this, ManageProfile.class);
                 i.putExtra("userid", userid);
+                startActivity(i);
+            }
+        });
+
+        btnReviewApps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //opening registration activity
+                Intent i = new Intent(EmployerMenu.this, ReviewApps.class);
+                i.putExtra("empid", userid);
                 startActivity(i);
             }
         });

@@ -24,5 +24,9 @@
     <string name="txtWMC"><a href="http://www.wmc.ac.uk">Wirral Metropolitan College</a></string>
     <string name="txtChester"><a href="http://www.chester.ac.uk">University of Chester</a></string>
     <string name="txtGDocs"><a href="http://developer.android.com/develop/index.html">Android Developer Reference</a></string>
+    <string name="title_activity_review_apps">ReviewApps</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_student_info">StudentInfo</string>
 
 </resources>
