@@ -28,5 +28,7 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_student_info">StudentInfo</string>
+    <string name="title_activity_user_info">UserInfo</string>
+    <string name="title_activity_maps">Map</string>
 
 </resources>

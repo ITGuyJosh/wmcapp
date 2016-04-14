@@ -1,24 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="d.wmcapp" >
+    package="d.wmcapp">
 
     <!-- required to access MS SQL Server (setts android app permissions) -->
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWEORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher_wmc"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyDeCijMbQq55TyX6qvo-3Iee7fGZSO9WrQ" />
 
         <activity
             android:name=".SplashScreen"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,69 +35,55 @@
         <activity
             android:name=".Login"
             android:label="@string/title_activity_login"
-            android:windowSoftInputMode="stateHidden" >
-        </activity>
+            android:windowSoftInputMode="stateHidden"></activity>
         <activity
             android:name=".AddJobs"
-            android:label="@string/title_activity_add_jobs" >
-        </activity>
+            android:label="@string/title_activity_add_jobs"></activity>
         <activity
             android:name=".ViewJobs"
             android:label="@string/title_activity_view_jobs"
-            android:windowSoftInputMode="stateHidden" >
-        </activity>
+            android:windowSoftInputMode="stateHidden"></activity>
         <activity
             android:name=".Register"
-            android:label="@string/title_activity_register" >
-        </activity>
+            android:label="@string/title_activity_register"
+            android:windowSoftInputMode="stateHidden"></activity>
         <activity
             android:name=".EmployerMenu"
-            android:label="@string/title_activity_employer_menu" >
-        </activity>
+            android:label="@string/title_activity_employer_menu"></activity>
         <activity
             android:name=".ManageJobs"
             android:label="@string/title_activity_manage_jobs"
-            android:windowSoftInputMode="stateHidden" >
->
-        </activity>
+            android:windowSoftInputMode="stateHidden"></activity>
         <activity
             android:name=".ManageProfile"
-            android:label="@string/title_activity_manage_profile" >
-        </activity>
+            android:label="@string/title_activity_manage_profile"
+            android:windowSoftInputMode="stateHidden"></activity>
         <activity
             android:name=".StudentMenu"
-            android:label="@string/title_activity_student_menu" >
-        </activity>
+            android:label="@string/title_activity_student_menu"></activity>
         <activity
             android:name=".AppStatus"
             android:label="@string/title_activity_app_status"
-            android:windowSoftInputMode="stateHidden" >
-        </activity>
+            android:windowSoftInputMode="stateHidden"></activity>
         <activity
             android:name=".ApplyForJob"
-            android:label="@string/title_activity_apply_for_job" >
-        </activity>
+            android:label="@string/title_activity_apply_for_job"></activity>
         <activity
             android:name=".Email"
-            android:label="@string/title_activity_email" >
-        </activity>
+            android:label="@string/title_activity_email"></activity>
         <activity
             android:name=".HelpScreen"
-            android:label="@string/title_activity_help_screen" >
-        </activity>
+            android:label="@string/title_activity_help_screen"></activity>
         <activity
             android:name=".Affiliates"
-            android:label="@string/title_activity_affiliates" >
-        </activity>
+            android:label="@string/title_activity_affiliates"></activity>
         <activity
             android:name=".ReviewApps"
-            android:label="@string/title_activity_review_apps" >
-        </activity>
+            android:label="@string/title_activity_review_apps"
+            android:windowSoftInputMode="stateHidden"></activity>
         <activity
-            android:name=".StudentInfo"
-            android:label="@string/title_activity_student_info"
-            android:windowSoftInputMode="stateHidden">
-        </activity>
+            android:name=".UserInfo"
+            android:label="@string/title_activity_user_info"></activity>
     </application>
 
 </manifest>

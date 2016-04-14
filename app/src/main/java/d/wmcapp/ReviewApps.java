@@ -100,8 +100,8 @@ public class ReviewApps extends AppCompatActivity {
                     jobid = (String) obj.get("B");
 
                     //loadup only that jobs information through passing id
-                    Intent intent = new Intent(ReviewApps.this, StudentInfo.class);
-                    intent.putExtra("stuid", stuid);
+                    Intent intent = new Intent(ReviewApps.this, UserInfo.class);
+                    intent.putExtra("userid", stuid);
                     intent.putExtra("jobid", jobid);
                     startActivity(intent);
                 }
@@ -135,7 +135,7 @@ public class ReviewApps extends AppCompatActivity {
                     String query = "SELECT DISTINCT U.id, JA.job_id, U.name, J.title FROM users AS U\n" +
                             "LEFT JOIN job_applications AS JA ON U.id = JA.user_id\n" +
                             "LEFT JOIN jobs AS J ON JA.job_id = J.id\n" +
-                            "WHERE J.user_id = '" + empid + "'";
+                            "WHERE J.user_id = '" + empid + "' AND JA.status = 1";
                     PreparedStatement ps = conn.prepareStatement(query);
                     ResultSet rs= ps.executeQuery();
 
