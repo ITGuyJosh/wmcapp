@@ -72,6 +72,19 @@
             android:textSize="20sp"
             android:textStyle="bold" />
 
+        <Button
+            android:id="@+id/btnStats"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@color/wmcyellow"
+            android:padding="10dp"
+            android:text="View Stats"
+            android:textColor="#000"
+            android:textColorHint="#ffffff"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
     </LinearLayout>
 
 </RelativeLayout>

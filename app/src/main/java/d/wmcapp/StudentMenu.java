@@ -9,13 +9,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import java.io.Serializable;
 
 public class StudentMenu extends AppCompatActivity {
 
     //declare variables
-    Button btnApply, btnMngProfile, btnAppStatus;
+    Button btnApply, btnMngProfile, btnAppStatus, btnStats;
     Integer userid;
     Toolbar toolbar;
+    Student user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +30,9 @@ public class StudentMenu extends AppCompatActivity {
         btnApply = (Button)findViewById(R.id.btnApply);
         btnMngProfile = (Button)findViewById(R.id.btnMngProfile);
         btnAppStatus = (Button)findViewById(R.id.btnAppStatus);
-        userid = getIntent().getExtras().getInt("userid");
+        btnStats = (Button)findViewById(R.id.btnStats);
+        user = (Student) getIntent().getSerializableExtra("user");
+        userid = user.getId();
 
         //setting custom toolbar
         toolbar = (Toolbar) findViewById(R.id.app_bar);
@@ -50,7 +56,7 @@ public class StudentMenu extends AppCompatActivity {
             public void onClick(View v) {
                 //opening registration activity
                 Intent i = new Intent(StudentMenu.this, ManageProfile.class);
-                i.putExtra("userid", userid);
+                i.putExtra("user", user);
                 startActivity(i);
             }
         });
@@ -61,6 +67,17 @@ public class StudentMenu extends AppCompatActivity {
                 //opening registration activity
                 Intent i = new Intent(StudentMenu.this, AppStatus.class);
                 i.putExtra("userid", userid);
+                startActivity(i);
+            }
+        });
+
+        btnStats.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //opening registration activity
+                Intent i = new Intent(StudentMenu.this, UserStats.class);
+                i.putExtra("uRole", user.getRole());
+                i.putExtra("user", user);
                 startActivity(i);
             }
         });

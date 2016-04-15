@@ -4,47 +4,66 @@ package d.wmcapp;
  * Created by Josh on 23/03/2016.
  */
 public class Employer extends Person {
-    //declaring variables
-//    private String company;
-//    private String address;
-    private String title;
-    private String jdesc;
-    private String skills;
+    //declaring additional employer properties
+    protected Integer PostedJobsNo;
+    protected Integer AppsNo;
+    protected Integer MostPopJob;
+    protected Integer LeastPopJob;
 
     //default constructor
     Employer() {
         super();
-        title = "";
-        jdesc = "";
-        skills = "";
+        PostedJobsNo = 0;
+        AppsNo = 0;
+        MostPopJob = 0;
+        LeastPopJob = 0;
     }
 
-    //override constructor
-//    Employer (String n, String e, String d,Integer r, String c, String a){
-//        super(n,e,d,r);
-////        company = c;
-////        address = a;
-//    }
+    //base override constructor
+    Employer (Integer i, Integer r, String n, String e, String d, String o, String a, String p){
+        super(i, r, n, e, d, o, a, p);
+        PostedJobsNo = 0;
+        AppsNo = 0;
+        MostPopJob = 0;
+        LeastPopJob = 0;
+    }
 
-    //override constructor
-    Employer (Integer i, String n, String e, String d,Integer r, String o, String t, String jd, String s){
-        super(i, n, e, d, r, o);
-        title = t;
-        jdesc = jd;
-        skills = s;
+    //full override constructor
+    Employer (Integer i, Integer r, String n, String e, String d, String o, String a, String p,
+             Integer pjno, Integer apno, Integer mpj, Integer lpj){
+        super(i, r, n, e, d, o, a, p);
+        PostedJobsNo = pjno;
+        AppsNo = apno;
+        MostPopJob = mpj;
+        LeastPopJob = lpj;
     }
 
     //getters
-//    public String getCompany(){ return company; }
-//    public String getAddress(){ return address; }
-//
-//    //setters
-//    public void setCompany(String company) { this.company = company; }
-//    public void setAddress(String address) { this.address = address; }
+    public Integer getPostedJobsNo(){return PostedJobsNo;}
+    public Integer getAppsNo(){return AppsNo;}
+    public Integer getMostPopJob(){return MostPopJob;}
+    public Integer getLeastPopJob(){return LeastPopJob;}
+
+    //setters
+    public void setPostedJobsNo(Integer PostedJobsNo){this.PostedJobsNo = PostedJobsNo;}
+    public void setAppsNo(Integer AppsNo){this.AppsNo = AppsNo;}
+    public void setMostPopJob(Integer MostPopJob){this.MostPopJob = MostPopJob;}
+    public void setLeastPopJob(Integer LeastPopJob){this.LeastPopJob = LeastPopJob;}
 
     //methods
     @Override
-    public void addContent() {
+    public String viewStats() {
+        //declaring empty string
+        String stats = "";
 
+        //adding object data to string
+        stats = "The total number of jobs you have posted is: " + PostedJobsNo +".\n" +
+                "The total applications against your posted jobs is: "+ AppsNo +".\n" +
+                "Your most applied for job is: JobID"+ MostPopJob +".\n" +
+                "Your least applied for job is: JobID"+ LeastPopJob +".\n" +
+                "(Check your Manage Job page for further information about your jobs)";
+
+        //returning polymorphic string to view
+        return stats;
     }
 }

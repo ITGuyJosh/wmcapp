@@ -30,5 +30,6 @@
     <string name="title_activity_student_info">StudentInfo</string>
     <string name="title_activity_user_info">UserInfo</string>
     <string name="title_activity_maps">Map</string>
+    <string name="title_activity_user_stats">UserStats</string>
 
 </resources>

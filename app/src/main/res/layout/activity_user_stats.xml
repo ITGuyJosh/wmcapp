@@ -1,0 +1,72 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/wmcblue"
+    tools:context="d.wmcapp.UserStats">
+
+    <include
+        android:id="@+id/app_bar"
+        layout="@layout/app_bar" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="50dp"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:weightSum="1">
+
+        <TextView
+            android:id="@+id/StudentMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_below="@+id/app_bar"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="Current Stats"
+            android:textColor="#fff"
+            android:textSize="35sp"
+            android:textStyle="bold"
+            android:typeface="sans" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:text="The current stats allocated to your account is the following:"
+            android:textColor="#ffffff"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:typeface="sans" />
+
+        <ProgressBar
+            android:id="@+id/pbbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+
+        <TextView
+            android:id="@+id/txtStats"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="#5d5d5d"
+            android:hint="STATS"
+            android:padding="10dp"
+            android:textColor="#ffffff"
+            android:textColorHint="#ffffff"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:inputType="textMultiLine"
+            android:maxLines="15"
+            android:minLines="12"
+            android:layout_weight="3.44" />
+
+    </LinearLayout>
+
+</RelativeLayout>

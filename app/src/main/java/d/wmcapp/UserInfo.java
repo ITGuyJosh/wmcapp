@@ -109,7 +109,7 @@ public class UserInfo extends AppCompatActivity {
             btnAddress.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent i = new Intent(getApplicationContext(), HelpScreen.class);
+                    Intent i = new Intent(getApplicationContext(), Maps.class);
                     i.putExtra("address", address);
                     i.putExtra("postcode", postcode);
                     startActivity(i);

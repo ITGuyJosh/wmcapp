@@ -24,6 +24,7 @@ public class ManageProfile extends AppCompatActivity {
     Integer userid;
     ProgressBar pbbar;
     Toolbar toolbar;
+    Person user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +39,15 @@ public class ManageProfile extends AppCompatActivity {
         editProf = (EditText)findViewById(R.id.edituserprof);
         btnUpdate = (Button) findViewById(R.id.btnUpdate);
         pbbar = (ProgressBar)findViewById(R.id.pbbar);
-        userid = getIntent().getExtras().getInt("userid");
+        user = (Person) getIntent().getSerializableExtra("user");
+        userid = user.getId();
         pbbar.setVisibility(View.GONE);
+
+        //getting user info from object and setting it to page
+        editName.setText(user.getName());
+        editOrg.setText(user.getOrg());
+        editEmail.setText(user.getEmail());
+        editProf.setText(user.getDescription());
 
         //setting custom toolbar
         toolbar = (Toolbar) findViewById(R.id.app_bar);

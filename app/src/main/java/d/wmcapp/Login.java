@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -72,18 +73,30 @@ public class Login extends AppCompatActivity {
     }
 
     // Container class identified by the arrow braces
-    public class DoLogin extends AsyncTask<String, String, String>{
+    public class DoLogin extends AsyncTask<String, String, String> {
+        //general variable declarations
         String message = "";
         Boolean isSuccess = false;
-        Integer role;
-        Integer userid;
         String username = editusername.getText().toString();
         String password = editpass.getText().toString();
 
-        // What happens in the background when you run it
+        //global class variables
+        Student stu;
+        Employer emp;
+
+        //user variables
+        Integer userid;
+        Integer role;
+        String name;
+        String org;
+        String email;
+        String desc;
+        String address;
+        String postcode;
+
+        // background running function
         @Override
         protected String doInBackground(String... params) {
-
             if(username.trim().equals("") || password.trim().equals("")){
                 message = "Please enter Username and Password.";
             } else {
@@ -99,34 +112,44 @@ public class Login extends AppCompatActivity {
                         ResultSet rs = stmt.executeQuery(query);
 
                         if(rs.next()){
-                            message = "Login Successful";
-                            role = rs.getInt("role");
+                            //creating user object from login
                             userid = rs.getInt("id");
+                            role = rs.getInt("role");
+                            name = rs.getString("name");
+                            email = rs.getString("email");
+                            desc = rs.getString("description");
+                            org = rs.getString("organisation");
+                            address = rs.getString("address_line");
+                            postcode = rs.getString("post_code");
+
+                            //student object
+                            if(role == 2){
+                                stu = new Student(
+                                        userid,
+                                        role,
+                                        name,
+                                        email,
+                                        desc,
+                                        org,
+                                        address,
+                                        postcode
+                                );
+                            // em
+                            } else{
+                                emp = new Employer(
+                                        userid,
+                                        role,
+                                        name,
+                                        email,
+                                        desc,
+                                        org,
+                                        address,
+                                        postcode
+                                );
+                            }
+                            //setting success rate
+                            message = "Login Successful";
                             isSuccess = true;
-
-//                            if(role == 2) {
-//                                //creating student object
-//                                Student user = new Student(
-//                                        rs.getInt("id"),
-//                                        rs.getString("name"),
-//                                        rs.getString("email"),
-//                                        rs.getString("description"),
-//                                        rs.getInt("role"),
-//                                        rs.getString("organisation")
-//                                );
-//                            }
-//                            } else if(role == 1){
-//                                Employer user = new Employer(
-//                                        rs.getInt("id"),
-//                                        rs.getString("name"),
-//                                        rs.getString("email"),
-//                                        rs.getString("description"),
-//                                        rs.getInt("role"),
-//                                        rs.getString("organisation")
-//                                );
-//                            }
-
-
 
                         }else{
                             message = "Invalid Credentials";
@@ -154,14 +177,14 @@ public class Login extends AppCompatActivity {
                 if(role == 1){
                     //setting up intent
                     Intent i = new Intent(Login.this, EmployerMenu.class);
-                    //passing it userid from login
-                    i.putExtra("userid", userid);
+                    //passing it user object from login
+                    i.putExtra("user", emp);
                     //starting activity
                     startActivity(i);
                     finish();
                 } else if(role == 2){
                     Intent i = new Intent(Login.this, StudentMenu.class);
-                    i.putExtra("userid", userid);
+                    i.putExtra("user", stu);
                     startActivity(i);
                     finish();
                 }

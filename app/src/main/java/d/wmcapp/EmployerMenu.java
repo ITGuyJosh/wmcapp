@@ -8,12 +8,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class EmployerMenu extends AppCompatActivity {
 
-    Button btnMngJobs, btnMngProfile,btnReviewApps;
+    Button btnMngJobs, btnMngProfile,btnReviewApps, btnStats;
     Integer userid;
     Toolbar toolbar;
+    Employer user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +26,9 @@ public class EmployerMenu extends AppCompatActivity {
         btnMngJobs = (Button)findViewById(R.id.btnMngJobs);
         btnMngProfile = (Button)findViewById(R.id.btnMngProfile);
         btnReviewApps = (Button)findViewById(R.id.btnAwaitRev);
-        userid = getIntent().getExtras().getInt("userid");
+        btnStats = (Button)findViewById(R.id.btnStats);
+        user = (Employer) getIntent().getSerializableExtra("user");
+        userid = user.getId();
 
         //setting custom toolbar
         toolbar = (Toolbar) findViewById(R.id.app_bar);
@@ -48,7 +52,7 @@ public class EmployerMenu extends AppCompatActivity {
             public void onClick(View v) {
                 //opening registration activity
                 Intent i = new Intent(EmployerMenu.this, ManageProfile.class);
-                i.putExtra("userid", userid);
+                i.putExtra("user", user);
                 startActivity(i);
             }
         });
@@ -59,6 +63,17 @@ public class EmployerMenu extends AppCompatActivity {
                 //opening registration activity
                 Intent i = new Intent(EmployerMenu.this, ReviewApps.class);
                 i.putExtra("empid", userid);
+                startActivity(i);
+            }
+        });
+
+        btnStats.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //opening registration activity
+                Intent i = new Intent(getApplicationContext(), UserStats.class);
+                i.putExtra("uRole", user.getRole());
+                i.putExtra("user", user);
                 startActivity(i);
             }
         });
