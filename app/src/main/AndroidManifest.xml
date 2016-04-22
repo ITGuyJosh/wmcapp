@@ -92,6 +92,10 @@
             android:name=".Maps"
             android:label="@string/title_activity_maps" >
         </activity>
+        <activity
+            android:name=".EditJobs"
+            android:label="@string/title_activity_edit_jobs" >
+        </activity>
     </application>
 
 </manifest>

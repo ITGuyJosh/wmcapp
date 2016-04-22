@@ -33,7 +33,7 @@ public class HelpScreen extends AppCompatActivity {
 
         //setting video
         final VideoView vidView = (VideoView)findViewById(R.id.videoView);
-        String vidAddress = "android.resource://"+getPackageName()+"/"+R.raw.samplevideo;
+        String vidAddress = "android.resource://"+getPackageName()+"/"+R.raw.wmcpromovid;
         Uri vidUri = Uri.parse(vidAddress);
         vidView.setVideoURI(vidUri);
 

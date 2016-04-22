@@ -1,6 +1,9 @@
 package d.wmcapp;
 
+import android.content.Context;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,6 +18,8 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,7 +32,7 @@ public class Register extends AppCompatActivity {
 
     //declare variables
     DataConn dataConn;
-    EditText editusername, editpass, editcontactname, editorg, editemail, edituserprofile;
+    EditText editusername, editpass, editcontactname, editorg, editemail, editroadaddress, editpostcode, edituserprofile;
     Spinner editrole;
     Button btnReg;
     ProgressBar pbbar;
@@ -45,6 +50,8 @@ public class Register extends AppCompatActivity {
         editcontactname = (EditText) findViewById(R.id.editcontactname);
         editorg = (EditText) findViewById(R.id.editorg);
         editemail = (EditText) findViewById(R.id.editemail);
+        editroadaddress = (EditText) findViewById(R.id.editroadaddress);
+        editpostcode = (EditText) findViewById(R.id.editpostcode);
         edituserprofile = (EditText) findViewById(R.id.edituserprof);
         btnReg = (Button) findViewById(R.id.btnReg);
         pbbar = (ProgressBar) findViewById(R.id.pbbar);
@@ -79,6 +86,30 @@ public class Register extends AppCompatActivity {
         });
     }
 
+    public LatLng getLocationFromAddress(String strAddress) {
+
+        Geocoder coder = new Geocoder(this);
+        List<Address> address;
+        LatLng p1 = null;
+
+        try {
+            address = coder.getFromLocationName(strAddress, 5);
+            if (address == null) {
+                return null;
+            }
+            Address location = address.get(0);
+            location.getLatitude();
+            location.getLongitude();
+
+            p1 = new LatLng(location.getLatitude(), location.getLongitude() );
+
+        } catch (Exception ex) {
+
+            ex.printStackTrace();
+        }
+
+        return p1;
+    }
 
     //AsyncTask for Adding Users
     public class AddUsers extends AsyncTask<String, String, String> {
@@ -92,6 +123,10 @@ public class Register extends AppCompatActivity {
         String email = editemail.getText().toString();
         String profile = edituserprofile.getText().toString();
         String role = editrole.getSelectedItem().toString();
+        String roadadd = editroadaddress.getText().toString();
+        String postadd = editpostcode.getText().toString();
+        String address = roadadd + ", " + postadd;
+        LatLng latlng;
         Integer uRole;
         Integer userid;
 
@@ -113,24 +148,31 @@ public class Register extends AppCompatActivity {
                         } else {
                             uRole = 1;
                         }
+
+                        latlng = getLocationFromAddress(address);
+                        Double l1 = latlng.latitude;
+                        Double l2 = latlng.longitude;
+                        String lat = l1.toString();
+                        String lng = l2.toString();
+
                         //inserting new user
-                        String iQuery = "INSERT INTO users (username, password, role, name, description, organisation, email) VALUES ('" + username + "','" + password + "', '" + uRole + "','" + cName + "','" + profile + "','" + org + "','" + email + "')";
+                        String iQuery = "INSERT INTO users (username, password, role, name, description, organisation, email, address, lat, lng) VALUES ('" + username + "','" + password + "', '" + uRole + "','" + cName + "','" + profile + "','" + org + "','" + email + "','" + address + "','" + lat + "','" + lng + "')";
                         PreparedStatement myQuery = conn.prepareStatement(iQuery);
                         myQuery.executeUpdate();
 
                         //getting userid
-                        String uQuery = "SELECT TOP 1 id FROM users ORDER BY created DESC";
-                        stmt = conn.prepareStatement(uQuery);
-                        rs = stmt.executeQuery();
+//                        String uQuery = "SELECT TOP 1 id FROM users ORDER BY created DESC";
+//                        stmt = conn.prepareStatement(uQuery);
+//                        rs = stmt.executeQuery();
+//
+//                        if(rs.next()){
+//                            userid = rs.getInt("id");
+//                        }else{
+//                            z = "Unable to get user id";
+//                            isSuccess = false;
+//                        }
 
-                        if(rs.next()){
-                            userid = rs.getInt("id");
-                        }else{
-                            z = "Unable to get user id";
-                            isSuccess = false;
-                        }
-
-                        z = "Successful Registration!";
+                        z = "Successful Registration. Please Login!";
                         isSuccess = true;
 
                     }
@@ -151,23 +193,27 @@ public class Register extends AppCompatActivity {
         protected void onPostExecute(String z) {
             pbbar.setVisibility(View.GONE);  // Once everything is done set the visibility of the progress bar to invisible
             Toast.makeText(Register.this, z, Toast.LENGTH_SHORT).show(); //Post the string r which contains info about what has happened.
-            if(isSuccess){
-                if(uRole == 1){
-                    //setting up intent
-                    Intent i = new Intent(Register.this, EmployerMenu.class);
-                    //passing it userid from login
-                    i.putExtra("userid", userid);
-                    //starting activity
-                    startActivity(i);
-                    finish();
-                } else if(uRole == 2){
-                    Intent i = new Intent(Register.this, ViewJobs.class);
-                    i.putExtra("userid", userid);
-                    startActivity(i);
-                    finish();
-                }
-
-            }
+//            if(isSuccess){
+//                if(uRole == 1){
+//                    //setting up intent
+//                    Intent i = new Intent(Register.this, EmployerMenu.class);
+//                    //passing it userid from login
+//                    i.putExtra("userid", userid);
+//                    //starting activity
+//                    startActivity(i);
+//                    finish();
+//                } else if(uRole == 2){
+//                    Intent i = new Intent(Register.this, StudentMenu.class);
+//                    i.putExtra("userid", userid);
+//                    startActivity(i);
+//                    finish();
+//                }
+//
+//            }
+            //redirecting back to login
+            Intent i = new Intent(getApplicationContext(), Login.class);
+            startActivity(i);
+            finish();
         }
     }
 

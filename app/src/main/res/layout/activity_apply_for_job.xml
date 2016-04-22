@@ -29,64 +29,78 @@
             android:weightSum="1">
 
             <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
                 android:text="Job Title"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
-
-            <TextView
-                android:id="@+id/txtTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:gravity="left"
-                android:text=""
-                android:textColor="#fff"
-                android:textSize="15sp"
+                android:textColor="#ffffff"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 android:typeface="sans" />
 
             <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Appreciated Skills"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
-
-            <TextView
-                android:id="@+id/txtSkills"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:gravity="left"
-                android:text=""
-                android:textColor="#fff"
-                android:textSize="15sp"
+                android:layout_marginTop="10dp"
+                android:textColor="#ffffff"
+                android:textColorHint="#ffffff"
+                android:textStyle="bold"
+                android:background="#5d5d5d"
+                android:padding="10dp"
+                android:hint="TITLE"
+                android:textSize="20sp"
+                android:id="@+id/txtTitle"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:text="Job Skills"
+                android:textColor="#ffffff"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 android:typeface="sans" />
 
             <TextView
-                android:id="@+id/textview3"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textColor="#ffffff"
+                android:textColorHint="#ffffff"
+                android:textStyle="bold"
+                android:background="#5d5d5d"
+                android:padding="10dp"
+                android:hint="SKILLS"
+                android:textSize="20sp"
+                android:id="@+id/txtSkills"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
                 android:text="Job Description"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
+                android:textColor="#ffffff"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:typeface="sans" />
 
             <TextView
                 android:id="@+id/txtDesc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:gravity="left"
-                android:text=""
-                android:textColor="#fff"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                android:typeface="sans" />
+                android:layout_gravity="top|left"
+                android:layout_marginTop="10dp"
+                android:background="#5d5d5d"
+                android:gravity="top"
+                android:hint="JOB DESCRIPTION"
+                android:inputType="textMultiLine"
+                android:maxLines="10"
+                android:minLines="8"
+                android:padding="10dp"
+                android:textColor="#ffffff"
+                android:textColorHint="#ffffff"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <ProgressBar
                 android:id="@+id/pbbar"

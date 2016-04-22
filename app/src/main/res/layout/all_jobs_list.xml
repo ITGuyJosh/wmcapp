@@ -21,7 +21,7 @@
         android:textColor="#ffffff"
         android:layout_weight="4"
         android:textSize="15sp"
-        android:text="TEST_TITLE"
+        android:text="TITLE"
         android:id="@+id/lbljobtitle"/>
 
 </LinearLayout>

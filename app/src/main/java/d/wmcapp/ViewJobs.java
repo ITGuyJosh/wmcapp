@@ -111,6 +111,7 @@ public class ViewJobs extends AppCompatActivity {
                     Intent intent = new Intent(ViewJobs.this, ApplyForJob.class);
                     intent.putExtra("jobid", jobid);
                     intent.putExtra("userid", userid);
+                    intent.putExtra("manage", 2);
                     startActivity(intent);
                 }
             });

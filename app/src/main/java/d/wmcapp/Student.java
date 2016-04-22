@@ -22,8 +22,8 @@ public class Student extends Person {
     }
 
     //base override constructor
-    Student (Integer i, Integer r, String n, String e, String d, String o, String a, String p){
-        super(i, r, n, e, d, o, a, p);
+    Student (Integer i, Integer r, String n, String e, String d, String o, String a, String lt, String ln){
+        super(i, r, n, e, d, o, a, lt, ln);
         AppliedJobsNo = 0;
         AcceptedNo = 0;
         PendingNo = 0;
@@ -32,9 +32,9 @@ public class Student extends Person {
     }
 
     //full override constructor
-    Student (Integer i, Integer r, String n, String e, String d, String o, String a, String p,
+    Student (Integer i, Integer r, String n, String e, String d, String o, String a, String lt, String ln,
              Integer ajno, Integer ano, Integer pno, Integer rno, Float ar){
-        super(i, r, n, e, d, o, a, p);
+        super(i, r, n, e, d, o, a, lt, ln);
         AppliedJobsNo = ajno;
         AcceptedNo = ano;
         PendingNo = pno;

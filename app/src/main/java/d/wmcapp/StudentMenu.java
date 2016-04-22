@@ -16,7 +16,7 @@ import java.io.Serializable;
 public class StudentMenu extends AppCompatActivity {
 
     //declare variables
-    Button btnApply, btnMngProfile, btnAppStatus, btnStats;
+    Button btnApply, btnMngProfile, btnAppStatus, btnStats, btnMap;
     Integer userid;
     Toolbar toolbar;
     Student user;
@@ -31,6 +31,7 @@ public class StudentMenu extends AppCompatActivity {
         btnMngProfile = (Button)findViewById(R.id.btnMngProfile);
         btnAppStatus = (Button)findViewById(R.id.btnAppStatus);
         btnStats = (Button)findViewById(R.id.btnStats);
+        btnMap = (Button) findViewById(R.id.btnMap);
         user = (Student) getIntent().getSerializableExtra("user");
         userid = user.getId();
 
@@ -76,6 +77,16 @@ public class StudentMenu extends AppCompatActivity {
             public void onClick(View v) {
                 //opening registration activity
                 Intent i = new Intent(StudentMenu.this, UserStats.class);
+                i.putExtra("userid", userid);
+                startActivity(i);
+            }
+        });
+
+        btnMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //opening registration activity
+                Intent i = new Intent(StudentMenu.this, Maps.class);
                 i.putExtra("uRole", user.getRole());
                 i.putExtra("user", user);
                 startActivity(i);

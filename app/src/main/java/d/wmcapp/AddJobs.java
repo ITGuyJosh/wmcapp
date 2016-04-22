@@ -38,8 +38,9 @@ public class AddJobs extends AppCompatActivity {
         editjobdesc = (EditText) findViewById(R.id.editjobdesc);
         btnAdd = (Button) findViewById(R.id.btnAdd);
         pbbar = (ProgressBar) findViewById(R.id.pbbar);
+
+        //loading extra info
         userid = getIntent().getExtras().getInt("userid");
-        pbbar.setVisibility(View.GONE);
 
         //setting custom toolbar
         toolbar = (Toolbar) findViewById(R.id.app_bar);
@@ -51,9 +52,8 @@ public class AddJobs extends AppCompatActivity {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AddJob addJob = new AddJob();
-                //can pass a variable here to declare its an Add when refactoring
-                addJob.execute("");
+                AddJob addjob = new AddJob();
+                addjob.execute("");
             }
         });
     }
@@ -113,23 +113,39 @@ public class AddJobs extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_add_jobs, menu);
+        // Loading up main menu
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        //switch case options menu
+        switch (item.getItemId()) {
+            case R.id.settings_about:
+                // About option clicked.
+                Intent i = new Intent(getApplicationContext(), HelpScreen.class);
+                startActivity(i);
+                return true;
+            case R.id.settings_help:
+                // Help option clicked.
+                Intent j = new Intent(getApplicationContext(), Email.class);
+                j.putExtra("helpClicked", 1);
+                startActivity(j);
+                return true;
+            case R.id.settings_affiliates:
+                // Affiliates option clicked.
+                Intent k = new Intent(getApplicationContext(), Affiliates.class);
+                startActivity(k);
+                return true;
+            case R.id.settings_logout:
+                // Logout option clicked.
+                Intent l = new Intent(getApplicationContext(), Login.class);
+                startActivity(l);
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-
-        return super.onOptionsItemSelected(item);
     }
 }

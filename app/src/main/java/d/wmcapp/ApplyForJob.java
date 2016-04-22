@@ -98,7 +98,6 @@ public class ApplyForJob extends AppCompatActivity {
         String jobdesc;
 
         String z = "";
-        List<Map<String, String>> joblist = new ArrayList<Map<String,String>>();
 
         protected void onPreExecute(){
             pbbar.setVisibility(View.VISIBLE); // Set the progress bar to visible to tell the user something is happening.

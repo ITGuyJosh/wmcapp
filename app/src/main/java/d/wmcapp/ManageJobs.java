@@ -86,15 +86,6 @@ public class ManageJobs extends AppCompatActivity {
 
     public class ListJobs extends AsyncTask<String, String, String> {
 
-        //to refactor make new class
-        //Person person;
-        //checl
-        //View view;
-        //sql helper
-        //need to pass list view too
-
-
-
         String z = "";
         List<Map<String, String>> joblist = new ArrayList<Map<String,String>>();
 
@@ -105,7 +96,7 @@ public class ManageJobs extends AppCompatActivity {
         protected void onPostExecute(String r){
             pbbar.setVisibility(View.GONE);  // Once everything is done set the visibility of the progress bar to invisible
             Toast.makeText(ManageJobs.this, r, Toast.LENGTH_SHORT).show(); //Post the string r which contains info about what has happened.
-            String[] from={"A","B"}; // An array of strings we use to reference our map.
+            String[] from={"A","B", "C", "D"}; // An array of strings we use to reference our map.
 
             // sorting algorithm to sort by
             Collections.sort(joblist, mapComparator);
@@ -119,6 +110,16 @@ public class ManageJobs extends AppCompatActivity {
                     HashMap<String, Object> obj = (HashMap<String, Object>) ADA.getItem(position); //Hashmap links strings with objectss
                     String jobID = (String) obj.get("A");
                     String jobTitle = (String) obj.get("B");
+                    String jobSkills = (String) obj.get("C");
+                    String jobDesc = (String) obj.get("D");
+
+                    //loadup only that jobs information for editing
+                    Intent intent = new Intent(getApplicationContext(), EditJobs.class);
+                    intent.putExtra("jobID", jobID);
+                    intent.putExtra("jobTitle", jobTitle);
+                    intent.putExtra("jobSkills", jobSkills);
+                    intent.putExtra("jobDesc", jobDesc);
+                    startActivity(intent);
                 }
             });
 
@@ -150,11 +151,13 @@ public class ManageJobs extends AppCompatActivity {
                     String query = "SELECT * FROM jobs WHERE user_id = '" + userid + "'";
                     PreparedStatement ps = conn.prepareStatement(query);
                     ResultSet rs= ps.executeQuery();
-                    ArrayList data1 = new ArrayList();
+
                     while (rs.next()){
                         Map<String,String> datanum = new HashMap<String,String>();
                         datanum.put("A",rs.getString("id"));
                         datanum.put("B",rs.getString("title"));
+                        datanum.put("C",rs.getString("skills"));
+                        datanum.put("D",rs.getString("description"));
                         joblist.add(datanum);
                     }
                     z="Success";

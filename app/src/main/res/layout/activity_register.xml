@@ -71,6 +71,10 @@
             android:layout_marginTop="5dp"
             android:textSize="20sp"
             android:hint="ROLE"
+            android:textColor="#ffffff"
+            android:textColorHint="#ffffff"
+            android:textStyle="bold"
+            android:background="#5d5d5d"
             android:id="@+id/editrole"
             android:layout_gravity="center_horizontal" />
 
@@ -117,6 +121,32 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textColor="#ffffff"
+            android:textColorHint="#ffffff"
+            android:textStyle="bold"
+            android:background="#5d5d5d"
+            android:padding="10dp"
+            android:hint="ROAD ADDRESS"
+            android:textSize="20sp"
+            android:id="@+id/editroadaddress"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textColor="#ffffff"
+            android:textColorHint="#ffffff"
+            android:textStyle="bold"
+            android:background="#5d5d5d"
+            android:padding="10dp"
+            android:hint="POST CODE"
+            android:textSize="20sp"
+            android:id="@+id/editpostcode"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="top|left"
             android:gravity="top"
             android:layout_marginTop="10dp"
@@ -132,18 +162,18 @@
             android:inputType="textMultiLine"
             android:id="@+id/edituserprof" />
 
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:id="@+id/pbbar" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:weightSum="3"
             android:layout_marginTop="5dp"
             android:orientation="horizontal">
-
-            <ProgressBar
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:id="@+id/pbbar" />
 
             <Button
                 android:layout_width="match_parent"

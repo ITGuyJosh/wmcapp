@@ -60,21 +60,6 @@ public class AppStatus extends AppCompatActivity {
 
     }
 
-//    public class BubbleSort{
-//
-//        ArrayList arrayList = new ArrayList();
-//
-//        for (int i = 0; i < arrayList.size(); i++) {
-//            for (int k = i + 1; k < arrayList.size(); k++) {
-//                // Compare left to right, not right to left.
-//                if (arrayList.get(i).compareToIgnoreCase(arrayList.get(k)) > 0) {
-//                    ArrayList temp = arrayList.get(i);
-//                    arrayList.set(i, arrayList.get(k));
-//                }
-//            }
-//        }
-//    }
-
     // comparator for use in comparing the data for sorting
     // selecting that  the status is the one that should be sorted
     public Comparator<Map<String, String>> mapComparator = new Comparator<Map<String, String>>() {

@@ -31,5 +31,6 @@
     <string name="title_activity_user_info">UserInfo</string>
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_user_stats">UserStats</string>
+    <string name="title_activity_edit_jobs">EditJobs</string>
 
 </resources>

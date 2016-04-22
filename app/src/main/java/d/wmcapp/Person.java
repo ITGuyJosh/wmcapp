@@ -17,7 +17,8 @@ public abstract class Person implements Serializable{
     protected String org;
     protected String description;
     protected String address;
-    protected String postcode;
+    protected String lat;
+    protected String lng;
 
     //default person contructor (for blank objects)
     Person(){
@@ -28,11 +29,12 @@ public abstract class Person implements Serializable{
         description = "";
         org = "";
         address = "";
-        postcode = "";
+        lat = "";
+        lng = "";
     }
 
     //override constructor
-    Person (Integer i, Integer r, String n, String e, String d, String o, String a, String p){
+    Person (Integer i, Integer r, String n, String e, String d, String o, String a, String la, String ln){
         id = i;
         role = r;
         name = n;
@@ -40,7 +42,8 @@ public abstract class Person implements Serializable{
         description = d;
         org = o;
         address = a;
-        postcode = p;
+        lat = la;
+        lng = ln;
     }
 
     //mutators sets, accessors gets (getting/setting is main factor of encapusalation)
@@ -52,7 +55,8 @@ public abstract class Person implements Serializable{
     public String getDescription(){ return description; }
     public String getOrg(){ return org; }
     public String getAddress(){ return address; }
-    public String getPostcode(){ return postcode; }
+    public String getLat(){ return lat; }
+    public String getLng(){ return lng; }
 
     //setters
     public void setId(Integer id){this.id = id;}
@@ -62,7 +66,8 @@ public abstract class Person implements Serializable{
     public void setEmail(String email) { this.email = email; }
     public void setDescription(String description) { this.description = description; }
     public void setAddress(String address) { this.address = address; }
-    public void setPostcode(String postcode) { this.postcode = postcode; }
+    public void setLat(String lat) { this.lat = lat; }
+    public void setLng(String lng) { this.lng = lng; }
 
     //declaring abstract polymorphic function
     public abstract String viewStats();
