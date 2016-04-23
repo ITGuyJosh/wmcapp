@@ -73,8 +73,10 @@
             android:hint="ROLE"
             android:textColor="#ffffff"
             android:textColorHint="#ffffff"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
             android:textStyle="bold"
-            android:background="#5d5d5d"
+            android:popupBackground="#5d5d5d"
             android:id="@+id/editrole"
             android:layout_gravity="center_horizontal" />
 

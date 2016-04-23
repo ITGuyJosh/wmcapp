@@ -55,7 +55,6 @@ public class Register extends AppCompatActivity {
         edituserprofile = (EditText) findViewById(R.id.edituserprof);
         btnReg = (Button) findViewById(R.id.btnReg);
         pbbar = (ProgressBar) findViewById(R.id.pbbar);
-        pbbar.setVisibility(View.GONE);
         editrole = (Spinner) findViewById(R.id.editrole);
 
         //Setting up adapter and list for spinner
@@ -86,31 +85,6 @@ public class Register extends AppCompatActivity {
         });
     }
 
-    public LatLng getLocationFromAddress(String strAddress) {
-
-        Geocoder coder = new Geocoder(this);
-        List<Address> address;
-        LatLng p1 = null;
-
-        try {
-            address = coder.getFromLocationName(strAddress, 5);
-            if (address == null) {
-                return null;
-            }
-            Address location = address.get(0);
-            location.getLatitude();
-            location.getLongitude();
-
-            p1 = new LatLng(location.getLatitude(), location.getLongitude() );
-
-        } catch (Exception ex) {
-
-            ex.printStackTrace();
-        }
-
-        return p1;
-    }
-
     //AsyncTask for Adding Users
     public class AddUsers extends AsyncTask<String, String, String> {
         //declare variables
@@ -126,14 +100,11 @@ public class Register extends AppCompatActivity {
         String roadadd = editroadaddress.getText().toString();
         String postadd = editpostcode.getText().toString();
         String address = roadadd + ", " + postadd;
-        LatLng latlng;
         Integer uRole;
         Integer userid;
 
         @Override
         protected String doInBackground(String... params) {
-            PreparedStatement stmt;
-            ResultSet rs;
             if (username.trim().equals("") || password.trim().equals("")|| cName.trim().equals("") || org.trim().equals("") || email.trim().equals("") || profile.trim().equals("") || role.trim().equals("")) {
                 z = "Please enter information to be added.";
             } else {
@@ -149,28 +120,10 @@ public class Register extends AppCompatActivity {
                             uRole = 1;
                         }
 
-                        latlng = getLocationFromAddress(address);
-                        Double l1 = latlng.latitude;
-                        Double l2 = latlng.longitude;
-                        String lat = l1.toString();
-                        String lng = l2.toString();
-
                         //inserting new user
-                        String iQuery = "INSERT INTO users (username, password, role, name, description, organisation, email, address, lat, lng) VALUES ('" + username + "','" + password + "', '" + uRole + "','" + cName + "','" + profile + "','" + org + "','" + email + "','" + address + "','" + lat + "','" + lng + "')";
+                        String iQuery = "INSERT INTO users (username, password, role, name, description, organisation, email, address) VALUES ('" + username + "','" + password + "', '" + uRole + "','" + cName + "','" + profile + "','" + org + "','" + email + "','" + address + "')";
                         PreparedStatement myQuery = conn.prepareStatement(iQuery);
                         myQuery.executeUpdate();
-
-                        //getting userid
-//                        String uQuery = "SELECT TOP 1 id FROM users ORDER BY created DESC";
-//                        stmt = conn.prepareStatement(uQuery);
-//                        rs = stmt.executeQuery();
-//
-//                        if(rs.next()){
-//                            userid = rs.getInt("id");
-//                        }else{
-//                            z = "Unable to get user id";
-//                            isSuccess = false;
-//                        }
 
                         z = "Successful Registration. Please Login!";
                         isSuccess = true;
@@ -193,23 +146,6 @@ public class Register extends AppCompatActivity {
         protected void onPostExecute(String z) {
             pbbar.setVisibility(View.GONE);  // Once everything is done set the visibility of the progress bar to invisible
             Toast.makeText(Register.this, z, Toast.LENGTH_SHORT).show(); //Post the string r which contains info about what has happened.
-//            if(isSuccess){
-//                if(uRole == 1){
-//                    //setting up intent
-//                    Intent i = new Intent(Register.this, EmployerMenu.class);
-//                    //passing it userid from login
-//                    i.putExtra("userid", userid);
-//                    //starting activity
-//                    startActivity(i);
-//                    finish();
-//                } else if(uRole == 2){
-//                    Intent i = new Intent(Register.this, StudentMenu.class);
-//                    i.putExtra("userid", userid);
-//                    startActivity(i);
-//                    finish();
-//                }
-//
-//            }
             //redirecting back to login
             Intent i = new Intent(getApplicationContext(), Login.class);
             startActivity(i);

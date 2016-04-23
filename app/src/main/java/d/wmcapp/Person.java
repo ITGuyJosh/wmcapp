@@ -17,8 +17,6 @@ public abstract class Person implements Serializable{
     protected String org;
     protected String description;
     protected String address;
-    protected String lat;
-    protected String lng;
 
     //default person contructor (for blank objects)
     Person(){
@@ -29,12 +27,10 @@ public abstract class Person implements Serializable{
         description = "";
         org = "";
         address = "";
-        lat = "";
-        lng = "";
     }
 
     //override constructor
-    Person (Integer i, Integer r, String n, String e, String d, String o, String a, String la, String ln){
+    Person (Integer i, Integer r, String n, String e, String d, String o, String a){
         id = i;
         role = r;
         name = n;
@@ -42,11 +38,9 @@ public abstract class Person implements Serializable{
         description = d;
         org = o;
         address = a;
-        lat = la;
-        lng = ln;
     }
 
-    //mutators sets, accessors gets (getting/setting is main factor of encapusalation)
+    //mutators sets, accessors gets (getting/setting is main factor of encapsulation)
     //getters
     public Integer getId(){ return id; }
     public Integer getRole(){ return role; }
@@ -55,8 +49,6 @@ public abstract class Person implements Serializable{
     public String getDescription(){ return description; }
     public String getOrg(){ return org; }
     public String getAddress(){ return address; }
-    public String getLat(){ return lat; }
-    public String getLng(){ return lng; }
 
     //setters
     public void setId(Integer id){this.id = id;}
@@ -66,8 +58,6 @@ public abstract class Person implements Serializable{
     public void setEmail(String email) { this.email = email; }
     public void setDescription(String description) { this.description = description; }
     public void setAddress(String address) { this.address = address; }
-    public void setLat(String lat) { this.lat = lat; }
-    public void setLng(String lng) { this.lng = lng; }
 
     //declaring abstract polymorphic function
     public abstract String viewStats();

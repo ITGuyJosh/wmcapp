@@ -20,8 +20,8 @@ public class Employer extends Person {
     }
 
     //base override constructor
-    Employer (Integer i, Integer r, String n, String e, String d, String o, String a, String lt, String ln){
-        super(i, r, n, e, d, o, a, lt, ln);
+    Employer (Integer i, Integer r, String n, String e, String d, String o, String a){
+        super(i, r, n, e, d, o, a);
         PostedJobsNo = 0;
         AppsNo = 0;
         MostPopJob = 0;
@@ -29,9 +29,9 @@ public class Employer extends Person {
     }
 
     //full override constructor
-    Employer (Integer i, Integer r, String n, String e, String d, String o, String a, String lt, String ln,
+    Employer (Integer i, Integer r, String n, String e, String d, String o, String a,
              Integer pjno, Integer apno, Integer mpj, Integer lpj){
-        super(i, r, n, e, d, o, a, lt, ln);
+        super(i, r, n, e, d, o, a);
         PostedJobsNo = pjno;
         AppsNo = apno;
         MostPopJob = mpj;

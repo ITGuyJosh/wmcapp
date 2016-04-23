@@ -92,8 +92,6 @@ public class Login extends AppCompatActivity {
         String email;
         String desc;
         String address;
-        String lat;
-        String lng;
 
         // background running function
         @Override
@@ -120,9 +118,7 @@ public class Login extends AppCompatActivity {
                             email = rs.getString("email");
                             desc = rs.getString("description");
                             org = rs.getString("organisation");
-                            address = rs.getString("address_line");
-                            lat = rs.getString("lat");
-                            lng = rs.getString("lng");
+                            address = rs.getString("address");
 
                             //student object
                             if(role == 2){
@@ -133,9 +129,7 @@ public class Login extends AppCompatActivity {
                                         email,
                                         desc,
                                         org,
-                                        address,
-                                        lat,
-                                        lng
+                                        address
                                 );
                             // employer object
                             } else{
@@ -146,9 +140,7 @@ public class Login extends AppCompatActivity {
                                         email,
                                         desc,
                                         org,
-                                        address,
-                                        lat,
-                                        lng
+                                        address
                                 );
                             }
                             //setting success rate
