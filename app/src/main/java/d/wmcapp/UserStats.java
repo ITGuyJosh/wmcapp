@@ -39,13 +39,14 @@ public class UserStats extends AppCompatActivity {
         dataConn = new DataConn();
         txtStats = (TextView)findViewById(R.id.txtStats);
         pbbar = (ProgressBar)findViewById(R.id.pbbar);
-        uRole = getIntent().getExtras().getInt("uRole");
+        user = (Person) getIntent().getSerializableExtra("user");
+        uRole = user.getRole();
 
         //setting user object depending on role
         if(uRole == 2){
             stu = (Student) getIntent().getSerializableExtra("user");
             userid = stu.getId();
-        } else {
+        } else if (uRole == 1){
             emp = (Employer) getIntent().getSerializableExtra("user");
             userid = emp.getId();
         }
@@ -113,10 +114,10 @@ public class UserStats extends AppCompatActivity {
                             stu.setPendingNo(rs.getInt("PendingNo"));
                             stu.setAcceptedNo(rs.getInt("AcceptedNo"));
                             stu.setRejectedNo(rs.getInt("RejectedNo"));
-
-                            //run polymorphic function
-                            stats = stu.viewStats();
                         }
+
+                        //run polymorphic function
+                        stats = stu.viewStats();
 
                     } else {
                         String query = "SELECT DISTINCT\n" +
@@ -135,10 +136,10 @@ public class UserStats extends AppCompatActivity {
                             emp.setAppsNo(rs.getInt("AppsNo"));
                             emp.setMostPopJob(rs.getInt("MostPopJob"));
                             emp.setLeastPopJob(rs.getInt("LeastPopJob"));
-
-                            //run polymorphic function
-                            stats = emp.viewStats();
                         }
+
+                        //run polymorphic function
+                        stats = emp.viewStats();
                     }
 
                     message = "User stats loaded.";

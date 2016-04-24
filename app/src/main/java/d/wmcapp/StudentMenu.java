@@ -17,7 +17,7 @@ public class StudentMenu extends AppCompatActivity {
 
     //declare variables
     Button btnApply, btnMngProfile, btnAppStatus, btnStats, btnMap;
-    Integer userid;
+    Integer userid, uRole;
     Toolbar toolbar;
     Student user;
 
@@ -77,7 +77,8 @@ public class StudentMenu extends AppCompatActivity {
             public void onClick(View v) {
                 //opening registration activity
                 Intent i = new Intent(StudentMenu.this, UserStats.class);
-                i.putExtra("userid", userid);
+                i.putExtra("uRole", uRole);
+                i.putExtra("user", user);
                 startActivity(i);
             }
         });
@@ -87,7 +88,6 @@ public class StudentMenu extends AppCompatActivity {
             public void onClick(View v) {
                 //opening registration activity
                 Intent i = new Intent(StudentMenu.this, Maps.class);
-                i.putExtra("uRole", user.getRole());
                 i.putExtra("user", user);
                 startActivity(i);
             }

@@ -68,61 +68,35 @@ public class AppStatus extends AppCompatActivity {
         }
     };
 
-    //THIS NEEDS REFACTORING
+    //AsyncTaskfor listing job status
     public class ListJobStatus extends AsyncTask<String, String, String> {
+        //declare variables
         String status;
         String z = "";
         List<Map<String, String>> joblist = new ArrayList<Map<String,String>>();
-        //BubbleSort sort = new BubbleSort();
 
         protected void onPreExecute(){
-            pbbar.setVisibility(View.VISIBLE); // Set the progress bar to visible to tell the user something is happening.
+            // Set the progress bar to visible to tell the user something is happening.
+            pbbar.setVisibility(View.VISIBLE);
         }
 
         protected void onPostExecute(String r){
-            pbbar.setVisibility(View.GONE);  // Once everything is done set the visibility of the progress bar to invisible
-            Toast.makeText(AppStatus.this, r, Toast.LENGTH_SHORT).show(); //Post the string r which contains info about what has happened.
-            String[] from={"A","B"}; // An array of strings we use to reference our map.
-
-//            for (int c = 0; c < (joblist.size() - 1); c++) {
-//                for (int d = 0; d < (joblist.size() - c - 1); d++) {
-//
-//                    if (Integer.parseInt(joblist.get(d).get("number")) > Integer
-//                            .parseInt(yourArrayList.get(d + 1).get("number"))) {
-//
-//                        temporary = yourArrayList.get(d);
-//                        yourArrayList.set(d, yourArrayList.get(d + 1));
-//                        yourArrayList.set(d + 1, temporary);
-//
-//                    }
-//                }
-//            }
-
-//            public static <T> void sort( int n, T[] array, Comparator<T> comparator ) {
-//                T tempVar;
-//                for( int i = 0; i < n - 1; i++ ) {
-//                    for( int j = 0; j < n - 1; j++ ) {
-//                        if( comparator.compare( array[i], array[j + 1]) > 0 ) {
-//                            tempVar = array[j + 1];
-//                            array[j + 1] = array[i];
-//                            array[i] = tempVar;
-//                        }
-//                    }
-//                }
-//            }
-//
-//            BubbleSort.sort( students.length, students, new Comparator<Student>() {
-//                public int compare(Stundent lhs, Student rhs ) {
-//                    //compare gpa
-//                }
-//            });
+            // Once everything is done set the visibility of the progress bar to invisible
+            pbbar.setVisibility(View.GONE);
+            //Post the string r which contains info about what has happened.
+            Toast.makeText(AppStatus.this, r, Toast.LENGTH_SHORT).show();
 
             // sorting algorithm to sort by
             Collections.sort(joblist, mapComparator);
 
-            int[] views = {R.id.lbljobid,R.id.lbljobtitle}; //an array of insts that reference the ids for our labels.
-            final SimpleAdapter ADA = new SimpleAdapter(AppStatus.this,joblist,R.layout.all_jobs_list,from,views);
-            listJobs.setAdapter(ADA); // The list adapter we're going to use to convert our arrays into the listview.
+            // An array of strings we use to reference our map.
+            String[] from={"A","B"};
+            //an array of ints that reference the ids for our labels.
+            int[] views = {R.id.lblthree,R.id.lblfour};
+            // The list adapter to convert arrays into the listview.
+            final SimpleAdapter ADA = new SimpleAdapter(AppStatus.this,joblist,R.layout.all_display_list,from,views);
+            //set adapter to the listview
+            listJobs.setAdapter(ADA);
 
             //search functionality
             searchJobs.addTextChangedListener(new TextWatcher() {

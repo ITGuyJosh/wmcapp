@@ -20,7 +20,7 @@ public class ManageProfile extends AppCompatActivity {
 
     DataConn dataConn;
     Button btnUpdate;
-    EditText editName, editEmail, editOrg, editProf;
+    EditText editName, editEmail, editOrg, editProf, editAdd;
     Integer userid;
     ProgressBar pbbar;
     Toolbar toolbar;
@@ -33,12 +33,13 @@ public class ManageProfile extends AppCompatActivity {
 
         //instaniate & initalise
         dataConn = new DataConn();
-        editName = (EditText)findViewById(R.id.editcontactname);
-        editEmail = (EditText)findViewById(R.id.editemail);
-        editOrg = (EditText)findViewById(R.id.editorg);
-        editProf = (EditText)findViewById(R.id.edituserprof);
+        editName = (EditText) findViewById(R.id.editcontactname);
+        editEmail = (EditText) findViewById(R.id.editemail);
+        editOrg = (EditText) findViewById(R.id.editorg);
+        editProf = (EditText) findViewById(R.id.edituserprof);
+        editAdd = (EditText) findViewById(R.id.editaddline);
         btnUpdate = (Button) findViewById(R.id.btnUpdate);
-        pbbar = (ProgressBar)findViewById(R.id.pbbar);
+        pbbar = (ProgressBar) findViewById(R.id.pbbar);
         user = (Person) getIntent().getSerializableExtra("user");
         userid = user.getId();
         pbbar.setVisibility(View.GONE);
@@ -48,6 +49,7 @@ public class ManageProfile extends AppCompatActivity {
         editOrg.setText(user.getOrg());
         editEmail.setText(user.getEmail());
         editProf.setText(user.getDescription());
+        editAdd.setText(user.getAddress());
 
         //setting custom toolbar
         toolbar = (Toolbar) findViewById(R.id.app_bar);
@@ -59,9 +61,9 @@ public class ManageProfile extends AppCompatActivity {
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //background update function
                 UpdateProfile upProf = new UpdateProfile();
-                //can pass a variable here to declare its an Add when refactoring
-                upProf.execute("");
+                upProf.execute();
             }
         });
 
@@ -77,10 +79,11 @@ public class ManageProfile extends AppCompatActivity {
         String org = editOrg.getText().toString();
         String desc = editProf.getText().toString();
         String email = editEmail.getText().toString();
+        String address = editAdd.getText().toString();
 
         @Override
         protected String doInBackground(String... params) {
-            if (name.trim().equals("") || org.trim().equals("")|| desc.trim().equals("")|| email.trim().equals("")) {
+            if (name.trim().equals("") || org.trim().equals("") || desc.trim().equals("") || email.trim().equals("") || address.trim().equals("")) {
                 z = "Please enter information to be added.";
             } else {
                 try {
@@ -89,10 +92,10 @@ public class ManageProfile extends AppCompatActivity {
                         z = "Error in connection with SQL server.";
                     } else {
                         //refactor around this element
-                        String query = "UPDATE users SET name = '"+ name +"', description = '"+ desc +"', organisation = '"+ org +"', email = '"+ email +"', WHERE id = '"+ userid +"'";
+                        String query = "UPDATE users SET name = '" + name + "', description = '" + desc + "', organisation = '" + org + "', email = '" + email + "', address = '" + address + "' WHERE id = '" + userid + "'";
                         PreparedStatement myQuery = conn.prepareStatement(query);
                         myQuery.executeUpdate();
-                        z = "Profile Updated!";
+                        z = "Profile updated! Please relog to see changes.";
                         isSuccess = true;
                     }
                 } catch (Exception ex) {
@@ -100,24 +103,36 @@ public class ManageProfile extends AppCompatActivity {
                     z = "An exception issue has occured.";
                 }
             }
-
             return z;
         }
 
+        //before background function
         protected void onPreExecute() {
             // Set the progress bar to visible to tell the user something is happening.
             pbbar.setVisibility(View.VISIBLE);
         }
 
+        //after background function
         protected void onPostExecute(String z) {
-            pbbar.setVisibility(View.GONE);  // Once everything is done set the visibility of the progress bar to invisible
-            Toast.makeText(ManageProfile.this, z, Toast.LENGTH_SHORT).show(); //Post the string r which contains info about what has happened.
+            // Once everything is done set the visibility of the progress bar to invisible
+            pbbar.setVisibility(View.GONE);
+            //Post the string r which contains info about what has happened.
+            Toast.makeText(ManageProfile.this, z, Toast.LENGTH_SHORT).show();
 
-            //Go back to manage jobs
-            Intent i = new Intent(ManageProfile.this, EmployerMenu.class);
-            i.putExtra("userid", userid);
-            startActivity(i);
-            finish();
+            //go back to Menu
+            if (user.getRole() == 2) {
+                //Go to student menu
+                Intent i = new Intent(ManageProfile.this, StudentMenu.class);
+                i.putExtra("user", user);
+                startActivity(i);
+                finish();
+            } else {
+                //go to emp menu
+                Intent i = new Intent(ManageProfile.this, EmployerMenu.class);
+                i.putExtra("user", user);
+                startActivity(i);
+                finish();
+            }
         }
     }
 

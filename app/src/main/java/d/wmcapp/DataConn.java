@@ -22,12 +22,16 @@ public class DataConn {
     String password = "WMCapp123";
 
     @SuppressLint("NewAPI")
+    //inner class to build connection string
     public Connection CONN() {
+        //utilsing strictmode to keep network operations off main thread
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+        //set conn as null
         Connection conn = null;
         String ConnURL = null;
 
+        //try/catch connection
         try {
             Class.forName(driver);
             ConnURL = "jdbc:jtds:sqlserver://" + server + ";" +
@@ -35,7 +39,7 @@ public class DataConn {
                     ";password=" + password + ";";
 
             conn = DriverManager.getConnection(ConnURL);
-
+        //output error types
         } catch (SQLException e) {
             Log.e("ERRO", e.getMessage());
         } catch (ClassNotFoundException e) {
@@ -43,9 +47,7 @@ public class DataConn {
         } catch (Exception e) {
             Log.e("ERRO", e.getMessage());
         }
-
         return conn;
-
     }
 }
 
