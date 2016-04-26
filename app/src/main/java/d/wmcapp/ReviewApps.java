@@ -63,14 +63,13 @@ public class ReviewApps extends AppCompatActivity {
 
 
     // comparator for use in comparing the data for sorting
-    // selecting that  the status is the one that should be sorted
+    // selecting that the status is the one that should be sorted
     public Comparator<Map<String, String>> mapComparator = new Comparator<Map<String, String>>() {
         public int compare(Map<String, String> m1, Map<String, String> m2) {
             return m1.get("D").compareTo(m2.get("D"));
         }
     };
 
-    //THIS NEEDS REFACTORING
     public class ListApplicants extends AsyncTask<String, String, String> {
 
         String stuid, jobid;
@@ -78,24 +77,31 @@ public class ReviewApps extends AppCompatActivity {
         List<Map<String, String>> joblist = new ArrayList<Map<String,String>>();
 
         protected void onPreExecute(){
-            pbbar.setVisibility(View.VISIBLE); // Set the progress bar to visible to tell the user something is happening.
+            // Set the progress bar to visible to tell the user something is happening.
+            pbbar.setVisibility(View.VISIBLE);
         }
 
         protected void onPostExecute(String r){
-            pbbar.setVisibility(View.GONE);  // Once everything is done set the visibility of the progress bar to invisible
-            Toast.makeText(ReviewApps.this, r, Toast.LENGTH_SHORT).show(); //Post the string r which contains info about what has happened.
-            String[] from={"A", "B", "C", "D"}; // An array of strings we use to reference our map.
+            // Once everything is done set the visibility of the progress bar to invisible
+            pbbar.setVisibility(View.GONE);
+            //Post the string r which contains info about what has happened.
+            Toast.makeText(ReviewApps.this, r, Toast.LENGTH_SHORT).show();
+            // An array of strings we use to reference our map.
+            String[] from={"A", "B", "C", "D"};
 
             // sorting algorithm to sort by
             Collections.sort(joblist, mapComparator);
 
-            int[] views = {R.id.lblone,R.id.lbltwo,R.id.lblthree,R.id.lblfour,}; //an array of insts that reference the ids for our labels.
+            //an array of insts that reference the ids for our labels.
+            int[] views = {R.id.lblone,R.id.lbltwo,R.id.lblthree,R.id.lblfour,};
             final SimpleAdapter ADA = new SimpleAdapter(ReviewApps.this,joblist,R.layout.all_display_list,from,views);
-            listJobs.setAdapter(ADA); // The list adapter we're going to use to convert our arrays into the listview.
+            // The list adapter to convert arrays into the listview.
+            listJobs.setAdapter(ADA);
             listJobs.setOnItemClickListener(new AdapterView.OnItemClickListener() { //When the buttons is clicked.
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    HashMap<String, Object> obj = (HashMap<String, Object>) ADA.getItem(position); //Hashmap links strings with objectss
+                    //Hashmap links strings with objectss
+                    HashMap<String, Object> obj = (HashMap<String, Object>) ADA.getItem(position);
                     stuid = (String) obj.get("A");
                     jobid = (String) obj.get("B");
 
@@ -107,7 +113,7 @@ public class ReviewApps extends AppCompatActivity {
                 }
             });
 
-            //search functionality
+            //search functionality based on text entered
             searchJobs.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {

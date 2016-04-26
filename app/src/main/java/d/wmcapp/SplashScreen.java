@@ -10,16 +10,17 @@ import android.widget.ImageView;
 
 public class SplashScreen extends AppCompatActivity {
 
+    //declare variables
     MediaPlayer Media;
     Animation logoZoom;
     ImageView wmcLogo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //declare variables
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
+        //setup variables
         Media = MediaPlayer.create(this, R.raw.splashsound);
         wmcLogo = (ImageView)findViewById(R.id.wmcLogo);
         logoZoom = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoomlogo);
@@ -28,11 +29,11 @@ public class SplashScreen extends AppCompatActivity {
         wmcLogo.startAnimation(logoZoom);
         Media.start();
 
-        /****** Create Thread that will sleep for 5 seconds *************/
+        //thread task
         Thread background = new Thread() {
             public void run() {
                 try {
-                    // Thread will sleep for 3 seconds
+                    // Thread will sleep for 2.5 seconds
                     sleep(2500);
 
                     // After 3 seconds redirect to another intent

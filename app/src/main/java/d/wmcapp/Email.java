@@ -55,7 +55,7 @@ public class Email extends AppCompatActivity {
         toolbar.setTitle("WMC EXP Helper");
         setSupportActionBar(toolbar);
 
-        //set button events
+        //initiate email via onclick
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,7 +97,8 @@ public class Email extends AppCompatActivity {
                 Toast.makeText(Email.this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
             }
 
-            pbbar.setVisibility(View.GONE);  // Once everything is done set the visibility of the progress bar to invisible
+            // Once everything is done set the visibility of the progress bar to invisible
+            pbbar.setVisibility(View.GONE);
 
         }
 

@@ -133,14 +133,17 @@ public class EditJobs extends AppCompatActivity {
         }
 
         protected void onPostExecute(String z) {
-            pbbar.setVisibility(View.GONE);  // Once everything is done set the visibility of the progress bar to invisible
-            Toast.makeText(EditJobs.this, z, Toast.LENGTH_SHORT).show(); //Post the string r which contains info about what has happened.
+            // Once everything is done set the visibility of the progress bar to invisible
+            pbbar.setVisibility(View.GONE);
+            //Post the string r which contains info about what has happened.
+            Toast.makeText(EditJobs.this, z, Toast.LENGTH_SHORT).show();
 
-            //Go back to employermenu
-            Intent i = new Intent(EditJobs.this, EmployerMenu.class);
-            i.putExtra("userid", userid);
-            startActivity(i);
-            finish();
+            if(isSuccess == true){
+                //Go back to employermenu
+                Intent i = new Intent(getApplicationContext(), EmployerMenu.class);
+                startActivity(i);
+            }
+
         }
     }
 

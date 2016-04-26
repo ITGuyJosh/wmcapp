@@ -70,17 +70,7 @@ public class ViewJobs extends AppCompatActivity {
         }
     };
 
-    //THIS NEEDS REFACTORING
     public class ListJobs extends AsyncTask<String, String, String> {
-
-        //to refactor make new class
-        //Person person;
-        //checl
-        //View view;
-        //sql helper
-        //need to pass list view too
-
-
 
         String z = "";
         List<Map<String, String>> joblist = new ArrayList<Map<String,String>>();

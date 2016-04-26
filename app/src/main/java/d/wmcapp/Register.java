@@ -56,6 +56,7 @@ public class Register extends AppCompatActivity {
         btnReg = (Button) findViewById(R.id.btnReg);
         pbbar = (ProgressBar) findViewById(R.id.pbbar);
         editrole = (Spinner) findViewById(R.id.editrole);
+        pbbar.setVisibility(View.GONE);
 
         //Setting up adapter and list for spinner
         ArrayAdapter<String> adapter;
@@ -70,7 +71,7 @@ public class Register extends AppCompatActivity {
 
         //setting custom toolbar
         toolbar = (Toolbar) findViewById(R.id.app_bar);
-        toolbar.setLogo(R.mipmap.wmc_icon);
+        toolbar.setNavigationIcon(R.mipmap.wmc_icon);
         toolbar.setTitle("WMC EXP Helper");
         setSupportActionBar(toolbar);
 

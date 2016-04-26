@@ -86,7 +86,7 @@ public class AppStatus extends AppCompatActivity {
             //Post the string r which contains info about what has happened.
             Toast.makeText(AppStatus.this, r, Toast.LENGTH_SHORT).show();
 
-            // sorting algorithm to sort by
+            // applying collections sort against arraylist & comparator benchmark
             Collections.sort(joblist, mapComparator);
 
             // An array of strings we use to reference our map.

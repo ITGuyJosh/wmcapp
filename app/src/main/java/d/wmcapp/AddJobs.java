@@ -38,6 +38,7 @@ public class AddJobs extends AppCompatActivity {
         editjobdesc = (EditText) findViewById(R.id.editjobdesc);
         btnAdd = (Button) findViewById(R.id.btnAdd);
         pbbar = (ProgressBar) findViewById(R.id.pbbar);
+        pbbar.setVisibility(View.GONE);
 
         //loading extra info
         userid = getIntent().getExtras().getInt("userid");
@@ -99,8 +100,10 @@ public class AddJobs extends AppCompatActivity {
         }
 
         protected void onPostExecute(String z) {
-            pbbar.setVisibility(View.GONE);  // Once everything is done set the visibility of the progress bar to invisible
-            Toast.makeText(AddJobs.this, z, Toast.LENGTH_SHORT).show(); //Post the string r which contains info about what has happened.
+            // Once everything is done set the visibility of the progress bar to invisible
+            pbbar.setVisibility(View.GONE);
+            //Post the string r which contains info about what has happened.
+            Toast.makeText(AddJobs.this, z, Toast.LENGTH_SHORT).show();
 
             //Go back to manage jobs
             Intent i = new Intent(AddJobs.this, ManageJobs.class);

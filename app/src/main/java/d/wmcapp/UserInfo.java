@@ -23,7 +23,7 @@ public class UserInfo extends AppCompatActivity {
     DataConn dataConn;
     TextView  txtName, txtOrg, txtEmail, txtProfile;
     String userid, jobid;
-    Button btnAddress, btnAccept, btnReject;
+    Button btnAccept, btnReject;
     ProgressBar pbbar;
     Toolbar toolbar;
 
@@ -43,7 +43,6 @@ public class UserInfo extends AppCompatActivity {
         pbbar = (ProgressBar)findViewById(R.id.pbbar);
         btnAccept = (Button) findViewById(R.id.btnAccept);
         btnReject = (Button) findViewById(R.id.btnReject);
-        btnAddress = (Button) findViewById(R.id.btnAddress);
 
         //setting custom toolbar
         toolbar = (Toolbar) findViewById(R.id.app_bar);
@@ -83,8 +82,6 @@ public class UserInfo extends AppCompatActivity {
         String org;
         String email;
         String profile;
-        String address;
-        String postcode;
         int role;
 
 
@@ -105,17 +102,6 @@ public class UserInfo extends AppCompatActivity {
             txtEmail.setText(email);
             txtProfile.setText(profile);
 
-            //set address button with address var extra
-            btnAddress.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent i = new Intent(getApplicationContext(), Maps.class);
-                    i.putExtra("address", address);
-                    i.putExtra("postcode", postcode);
-                    startActivity(i);
-                }
-            });
-
             //hide or show apply buttons by users role
             if(role != 2){
                 // hide buttons if loaded user isn't student
@@ -135,7 +121,7 @@ public class UserInfo extends AppCompatActivity {
                     } else {
 
                         //getting userid
-                        String uQuery = "SELECT name, organisation, email, description, address_line, post_code, role FROM users WHERE id = '" + userid +"'";
+                        String uQuery = "SELECT name, organisation, email, description, role FROM users WHERE id = '" + userid +"'";
                         stmt = conn.prepareStatement(uQuery);
                         rs = stmt.executeQuery();
 
@@ -144,8 +130,6 @@ public class UserInfo extends AppCompatActivity {
                             org = rs.getString("organisation");
                             email = rs.getString("email");
                             profile = rs.getString("description");
-                            address = rs.getString("address_line");
-                            postcode = rs.getString("post_code");
                             role = rs.getInt("role");
                         }else{
                             z = "Unable to retrieve user information";
@@ -181,8 +165,10 @@ public class UserInfo extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String z) {
-            pbbar.setVisibility(View.GONE);  // Once everything is done set the visibility of the progress bar to invisible
-            Toast.makeText(getApplicationContext(), z, Toast.LENGTH_SHORT).show(); //Post the string r which contains info about what has happened.
+            // Once everything is done set the visibility of the progress bar to invisible
+            pbbar.setVisibility(View.GONE);
+            //Post the string r which contains info about what has happened.
+            Toast.makeText(getApplicationContext(), z, Toast.LENGTH_SHORT).show();
         }
 
         @Override

@@ -58,12 +58,12 @@ public class Student extends Person {
     public void setRejectedNo(Integer RejectedNo){this.RejectedNo = RejectedNo;}
     public void setAcceptenceRatio(Float AcceptenceRatio){this.AcceptenceRatio = AcceptenceRatio;}
 
-    //polymorphic methods
+    //student polymorphic method
     @Override
     public String viewStats() {
         //declaring empty string
         String stats = "";
-        //calculating acceptence ratio
+        //calculating acceptance ratio
         AcceptenceRatio = ((float)AcceptedNo / (float)AppliedJobsNo) * 100;
 
         //adding object data to string
@@ -71,7 +71,7 @@ public class Student extends Person {
                 "The number of jobs you have been accepted for is: "+ AcceptedNo +".\n" +
                 "The number of jobs you have been rejected for is: "+ RejectedNo +".\n" +
                 "The number of jobs still pending is: "+ PendingNo +".\n" +
-                "Your overall acceptence ratio is: " + AcceptenceRatio +"%.";
+                "Your overall acceptance ratio is: " + AcceptenceRatio +"%.";
 
         //returning polymorphic string to view
         return stats;

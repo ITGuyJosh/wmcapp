@@ -120,7 +120,7 @@ public class Maps extends FragmentActivity {
 
         return p1;
     }
-        //search funtion based on text entered
+        //search function based on text entered
     protected void search(List<Address> addresses) {
 
         Address address = (Address) addresses.get(0);
@@ -188,8 +188,10 @@ public class Maps extends FragmentActivity {
         }
 
         protected void onPostExecute(String z) {
-            pbbar.setVisibility(View.GONE);  // Once everything is done set the visibility of the progress bar to invisible
-            Toast.makeText(getApplicationContext(), z, Toast.LENGTH_SHORT).show(); //Post the string r which contains info about what has happened.
+            // Once everything is done set the visibility of the progress bar to invisible
+            pbbar.setVisibility(View.GONE);
+            //Post the string r which contains info about what has happened.
+            Toast.makeText(getApplicationContext(), z, Toast.LENGTH_SHORT).show();
 
             //setup googlemap
             for(int i = 0; i < addressList.size(); i++){

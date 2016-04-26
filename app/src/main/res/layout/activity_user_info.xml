@@ -135,21 +135,6 @@
                 android:hint="PROFILE"
                 android:id="@+id/txtProfile" />
 
-            <Button
-                android:id="@+id/btnAddress"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:background="@color/wmcyellow"
-                android:padding="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:text="Address"
-                android:textColor="#000"
-                android:textColorHint="#ffffff"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
             <ProgressBar
                 android:id="@+id/pbbar"
                 android:layout_width="wrap_content"

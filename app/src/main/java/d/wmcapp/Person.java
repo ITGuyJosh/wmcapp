@@ -5,9 +5,8 @@ import java.io.Serializable;
 /**
  * Created by Josh on 23/03/2016.
  */
-//abstact is only the super class
-    //need to have for polymorphism, as it enforces the implementation of a function that inherits from it
-    //abstract methods are the ones that are implemented differently in child classes (poly)
+
+    //abstract class for student/employer extension & polymorphism
 public abstract class Person implements Serializable{
     //declare general properties to be inherited by child classes
     protected Integer id;
@@ -40,7 +39,8 @@ public abstract class Person implements Serializable{
         address = a;
     }
 
-    //mutators sets, accessors gets (getting/setting is main factor of encapsulation)
+    //(getting/setting is main factor of encapsulation)
+    //mutators sets, accessors gets
     //getters
     public Integer getId(){ return id; }
     public Integer getRole(){ return role; }

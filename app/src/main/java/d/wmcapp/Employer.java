@@ -50,7 +50,7 @@ public class Employer extends Person {
     public void setMostPopJob(Integer MostPopJob){this.MostPopJob = MostPopJob;}
     public void setLeastPopJob(Integer LeastPopJob){this.LeastPopJob = LeastPopJob;}
 
-    //methods
+    //employer polymorphic method
     @Override
     public String viewStats() {
         //declaring empty string
@@ -63,7 +63,7 @@ public class Employer extends Person {
                 "Your least applied for job is: JobID"+ LeastPopJob +".\n" +
                 "(Check your Manage Job page for further information about your jobs)";
 
-        //returning polymorphic string to view
+        //returning polymorphic string
         return stats;
     }
 }

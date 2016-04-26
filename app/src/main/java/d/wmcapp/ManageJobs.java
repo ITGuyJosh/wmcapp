@@ -90,24 +90,31 @@ public class ManageJobs extends AppCompatActivity {
         List<Map<String, String>> joblist = new ArrayList<Map<String,String>>();
 
         protected void onPreExecute(){
-            pbbar.setVisibility(View.VISIBLE); // Set the progress bar to visible to tell the user something is happening.
+            // Set the progress bar to visible to tell the user something is happening.
+            pbbar.setVisibility(View.VISIBLE);
         }
 
         protected void onPostExecute(String r){
-            pbbar.setVisibility(View.GONE);  // Once everything is done set the visibility of the progress bar to invisible
-            Toast.makeText(ManageJobs.this, r, Toast.LENGTH_SHORT).show(); //Post the string r which contains info about what has happened.
-            String[] from={"A","B", "C", "D"}; // An array of strings we use to reference our map.
+            // Once everything is done set the visibility of the progress bar to invisible
+            pbbar.setVisibility(View.GONE);
+            //Post the string r which contains info about what has happened.
+            Toast.makeText(ManageJobs.this, r, Toast.LENGTH_SHORT).show();
+            // An array of strings we use to reference our map.
+            String[] from={"A","B", "C", "D"};
 
             // sorting algorithm to sort by
             Collections.sort(joblist, mapComparator);
 
-            int[] views = {R.id.lbljobid,R.id.lbljobtitle}; //an array of insts that reference the ids for our labels.
+            //an array of insts that reference the ids for our labels.
+            int[] views = {R.id.lbljobid,R.id.lbljobtitle};
             final SimpleAdapter ADA = new SimpleAdapter(ManageJobs.this,joblist,R.layout.all_jobs_list,from,views);
-            listJobs.setAdapter(ADA); // The list adapter we're going to use to convert our arrays into the listview.
+            // The list adapter we're going to use to convert our arrays into the listview.
+            listJobs.setAdapter(ADA);
             listJobs.setOnItemClickListener(new AdapterView.OnItemClickListener() { //When the buttons is clicked.
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    HashMap<String, Object> obj = (HashMap<String, Object>) ADA.getItem(position); //Hashmap links strings with objectss
+                    //Hashmap links strings with objectss
+                    HashMap<String, Object> obj = (HashMap<String, Object>) ADA.getItem(position);
                     String jobID = (String) obj.get("A");
                     String jobTitle = (String) obj.get("B");
                     String jobSkills = (String) obj.get("C");
@@ -115,6 +122,7 @@ public class ManageJobs extends AppCompatActivity {
 
                     //loadup only that jobs information for editing
                     Intent intent = new Intent(getApplicationContext(), EditJobs.class);
+                    intent.putExtra("userid", userid);
                     intent.putExtra("jobID", jobID);
                     intent.putExtra("jobTitle", jobTitle);
                     intent.putExtra("jobSkills", jobSkills);

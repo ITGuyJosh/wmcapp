@@ -122,9 +122,9 @@ public class UserStats extends AppCompatActivity {
                     } else {
                         String query = "SELECT DISTINCT\n" +
                                 "\t(SELECT COUNT(*) FROM jobs WHERE user_id = '" + userid + "') AS PostedJobsNo,\n" +
-                                "    (SELECT COUNT(*) FROM job_applications LEFT JOIN jobs AS J ON JA.job_id = J.id WHERE  J.user_id = '" + userid + "') AS AppsNo,\n" +
-                                "\t(SELECT TOP 1 job_id FROM job_applications LEFT JOIN jobs AS J ON JA.job_id = J.id WHERE  J.user_id = '" + userid + "' GROUP BY job_id ORDER BY COUNT(job_id) DESC) AS MostPopJob,\n" +
-                                "\t(SELECT TOP 1 job_id FROM job_applications LEFT JOIN jobs AS J ON JA.job_id = J.id WHERE  J.user_id = '" + userid + "' GROUP BY job_id ORDER BY COUNT(job_id) ASC) AS LeastPopJob\n" +
+                                "    (SELECT COUNT(*) FROM job_applications AS JA LEFT JOIN jobs AS J ON JA.job_id = J.id WHERE  J.user_id = '" + userid + "') AS AppsNo,\n" +
+                                "\t(SELECT TOP 1 job_id FROM job_applications AS JA LEFT JOIN jobs AS J ON JA.job_id = J.id WHERE  J.user_id = '" + userid + "' GROUP BY job_id ORDER BY COUNT(job_id) DESC) AS MostPopJob,\n" +
+                                "\t(SELECT TOP 1 job_id FROM job_applications AS JA LEFT JOIN jobs AS J ON JA.job_id = J.id WHERE  J.user_id = '" + userid + "' GROUP BY job_id ORDER BY COUNT(job_id) ASC) AS LeastPopJob\n" +
                                 "FROM job_applications AS JA\n" +
                                 "LEFT JOIN jobs AS J ON JA.job_id = J.id;";
                         PreparedStatement myQuery = conn.prepareStatement(query);
