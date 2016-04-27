@@ -51,9 +51,6 @@
                 android:background="@drawable/ic_mag_search" />
 
         </LinearLayout>
-
-
-
     </LinearLayout>
 
 <fragment
