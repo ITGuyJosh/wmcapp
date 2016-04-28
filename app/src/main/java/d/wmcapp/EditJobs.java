@@ -94,22 +94,26 @@ public class EditJobs extends AppCompatActivity {
         protected String doInBackground(String... params) {
             type = params[0];
 
+            //check if data entered
             if (newtitle.trim().equals("") || newskills.trim().equals("")|| newdesc.trim().equals("")) {
                 z = "Please enter information to be added.";
             } else {
                 try {
+                    // set and check data conenction
                     Connection conn = dataConn.CONN();
                     if (conn == null) {
                         z = "Error in connection with SQL server.";
                     } else {
-
+                        //check if user is updating (1) or deleting (2)
                         if(type == "1"){
+                            //updating text to db
                             String query = "UPDATE jobs SET title = '" + newtitle + "', skills = '" + newskills + "', description = '" + newdesc + "' WHERE id = '" + jobID + "'";
                             PreparedStatement myQuery = conn.prepareStatement(query);
                             myQuery.executeUpdate();
                             z = "Job Updated!";
                             isSuccess = true;
                         } else if(type == "2") {
+                            //deleting record
                             String query = "DELETE FROM jobs WHERE id = '" + jobID + "'";
                             PreparedStatement myQuery = conn.prepareStatement(query);
                             myQuery.executeUpdate();

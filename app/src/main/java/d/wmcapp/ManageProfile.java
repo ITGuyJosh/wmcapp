@@ -18,6 +18,7 @@ import java.sql.PreparedStatement;
 
 public class ManageProfile extends AppCompatActivity {
 
+    //declaring variables
     DataConn dataConn;
     Button btnUpdate;
     EditText editName, editEmail, editOrg, editProf, editAdd;
@@ -72,7 +73,7 @@ public class ManageProfile extends AppCompatActivity {
 
     //AsyncTask for Updating Profile
     public class UpdateProfile extends AsyncTask<String, String, String> {
-        //declare variables
+        //declare local variables
         String z = "";
         Boolean isSuccess = false;
         String name = editName.getText().toString();
@@ -83,15 +84,17 @@ public class ManageProfile extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... params) {
+            //checking if information has been entered
             if (name.trim().equals("") || org.trim().equals("") || desc.trim().equals("") || email.trim().equals("") || address.trim().equals("")) {
                 z = "Please enter information to be added.";
             } else {
                 try {
+                    //verifying db conn and setting if successful
                     Connection conn = dataConn.CONN();
                     if (conn == null) {
                         z = "Error in connection with SQL server.";
                     } else {
-                        //refactor around this element
+                        //setting and executing update query
                         String query = "UPDATE users SET name = '" + name + "', description = '" + desc + "', organisation = '" + org + "', email = '" + email + "', address = '" + address + "' WHERE id = '" + userid + "'";
                         PreparedStatement myQuery = conn.prepareStatement(query);
                         myQuery.executeUpdate();

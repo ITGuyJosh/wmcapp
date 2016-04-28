@@ -29,6 +29,7 @@ import java.util.Map;
 
 public class AppStatus extends AppCompatActivity {
 
+    //declaring variables
     DataConn dataConn;
     ListView listJobs;
     Integer userid;

@@ -33,6 +33,7 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        //initialise variables
         dataConn = new DataConn();
         editusername = (EditText)findViewById(R.id.editusername);
         editpass = (EditText)findViewById(R.id.editpass);
@@ -49,17 +50,16 @@ public class Login extends AppCompatActivity {
         toolbar.setTitle("WMC EXP Helper");
         setSupportActionBar(toolbar);
 
+        //login button asynctask execution
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Do login extends asynctask
-                // Creating login object in the background/asyncron
-                // Allows you to do otherthings while it's processing
                 DoLogin doLogin = new DoLogin();
                 doLogin.execute("");
             }
         });
 
+        //onclick listener for registration
         btnReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,7 +72,7 @@ public class Login extends AppCompatActivity {
 
     }
 
-    // Container class identified by the arrow braces
+    // asynctask for logging in
     public class DoLogin extends AsyncTask<String, String, String> {
         //general variable declarations
         String message = "";
@@ -96,20 +96,24 @@ public class Login extends AppCompatActivity {
         // background running function
         @Override
         protected String doInBackground(String... params) {
+            //check login details have been entered
             if(username.trim().equals("") || password.trim().equals("")){
                 message = "Please enter Username and Password.";
             } else {
+                //verify database conenction
                 try{
                     Connection conn = dataConn.CONN();
                     if(conn == null) {
                         message = "Error with server connection.";
                     }else {
+                        //querying database
                         String query = "SELECT * FROM users WHERE username ='" + username +"' " +
                                 "AND password='" + password + "'";
 
                         Statement stmt = conn.createStatement();
                         ResultSet rs = stmt.executeQuery(query);
 
+                        //evaluating resultset
                         if(rs.next()){
                             //creating user object from login
                             userid = rs.getInt("id");

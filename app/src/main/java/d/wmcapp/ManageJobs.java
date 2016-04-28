@@ -58,14 +58,15 @@ public class ManageJobs extends AppCompatActivity {
         toolbar.setLogo(R.mipmap.wmc_icon);
         toolbar.setTitle("WMC EXP Helper");
 
-
+        //intiate getAllJobs asynctask
         ListJobs getAllJobs = new ListJobs();
         getAllJobs.execute();
 
+        //set onclick listener
         btnAddJob.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //opening registration activity
+                //opening Add Job activity
                 Intent i = new Intent(ManageJobs.this, AddJobs.class);
                 i.putExtra("userid", userid);
                 startActivity(i);
@@ -84,6 +85,7 @@ public class ManageJobs extends AppCompatActivity {
         }
     };
 
+    //async task for getting and setting dynamic database information to listview
     public class ListJobs extends AsyncTask<String, String, String> {
 
         String z = "";
@@ -150,16 +152,20 @@ public class ManageJobs extends AppCompatActivity {
                 }
             });
         }
+        //background task to query db
         protected String doInBackground(String... params) {
+            //verify db conn and set it
             try{
                 Connection conn = dataConn.CONN();
                 if (conn == null) {
                     z = "Error in connection with SQL server";
                 }else{
+                    //run query
                     String query = "SELECT * FROM jobs WHERE user_id = '" + userid + "'";
                     PreparedStatement ps = conn.prepareStatement(query);
                     ResultSet rs= ps.executeQuery();
 
+                    //evaluating result set into hashmap and arraylist
                     while (rs.next()){
                         Map<String,String> datanum = new HashMap<String,String>();
                         datanum.put("A",rs.getString("id"));

@@ -26,7 +26,7 @@ public class StudentMenu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_menu);
 
-        //getting ids
+        //getting ids & initialising
         btnApply = (Button)findViewById(R.id.btnApply);
         btnMngProfile = (Button)findViewById(R.id.btnMngProfile);
         btnAppStatus = (Button)findViewById(R.id.btnAppStatus);
@@ -45,7 +45,7 @@ public class StudentMenu extends AppCompatActivity {
         btnApply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //opening  activity
+                //opening view jobs  activity
                 Intent i = new Intent(StudentMenu.this, ViewJobs.class);
                 i.putExtra("userid", userid);
                 startActivity(i);
@@ -55,7 +55,7 @@ public class StudentMenu extends AppCompatActivity {
         btnMngProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //opening registration activity
+                //opening profile management activity
                 Intent i = new Intent(StudentMenu.this, ManageProfile.class);
                 i.putExtra("user", user);
                 startActivity(i);
@@ -65,7 +65,7 @@ public class StudentMenu extends AppCompatActivity {
         btnAppStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //opening registration activity
+                //opening application status activity
                 Intent i = new Intent(StudentMenu.this, AppStatus.class);
                 i.putExtra("userid", userid);
                 startActivity(i);
@@ -75,7 +75,7 @@ public class StudentMenu extends AppCompatActivity {
         btnStats.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //opening registration activity
+                //opening user stats activity
                 Intent i = new Intent(StudentMenu.this, UserStats.class);
                 i.putExtra("uRole", uRole);
                 i.putExtra("user", user);
@@ -86,7 +86,7 @@ public class StudentMenu extends AppCompatActivity {
         btnMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //opening registration activity
+                //opening maps activity
                 Intent i = new Intent(StudentMenu.this, Maps.class);
                 i.putExtra("user", user);
                 startActivity(i);

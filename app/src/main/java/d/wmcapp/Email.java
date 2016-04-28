@@ -21,6 +21,7 @@ import java.sql.ResultSet;
 
 public class Email extends AppCompatActivity {
 
+    //declare variables
     Button btnSend;
     EditText txtSubject, txtMsg;
     Integer jobid, helpClicked;
@@ -67,11 +68,13 @@ public class Email extends AppCompatActivity {
 
     //
     public class ContactEmail extends AsyncTask<String, String, String> {
+        //declare local variables
         String empEmail;
         String z = "";
 
         protected void onPreExecute() {
-            pbbar.setVisibility(View.VISIBLE); // Set the progress bar to visible to tell the user something is happening.
+            // Set the progress bar to visible to tell the user something is happening.
+            pbbar.setVisibility(View.VISIBLE);
         }
 
         protected void onPostExecute(String r) {
@@ -102,6 +105,7 @@ public class Email extends AppCompatActivity {
 
         }
 
+        //background task to get employer email from db or set static help email
         protected String doInBackground(String... params) {
             try {
                 Connection conn = dataConn.CONN();

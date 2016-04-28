@@ -61,6 +61,7 @@ public class Maps extends FragmentActivity {
         user = (Student) getIntent().getSerializableExtra("user");
         userid = user.getId();
 
+        //executing asynctask to set local employer locations & titles
         GetLatLong latlng = new GetLatLong();
         latlng.execute();
 
@@ -98,10 +99,12 @@ public class Maps extends FragmentActivity {
     //converts string address into a latlng for populating onto the map
     public LatLng getLocationFromAddress(String strAddress) {
 
+        //declare local variables
         Geocoder coder = new Geocoder(this);
         List<Address> address;
         LatLng p1 = null;
 
+        //try to return latlng location via string to return
         try {
             address = coder.getFromLocationName(strAddress, 5);
             if (address == null) {
@@ -123,9 +126,11 @@ public class Maps extends FragmentActivity {
         //search function based on text entered
     protected void search(List<Address> addresses) {
 
+        //declare variables
         Address address = (Address) addresses.get(0);
         LatLng ltlg = new LatLng(address.getLatitude(), address.getLongitude());
 
+        //set address text equal to format based on .getAddressLine
         String addressText = String.format(
                 "%s, %s",
                 address.getMaxAddressLineIndex() > 0 ? address
@@ -136,6 +141,7 @@ public class Maps extends FragmentActivity {
         markerOptions.position(ltlg);
         markerOptions.title(addressText);
 
+        //apply to map
         mMap.clear();
         mMap.addMarker(markerOptions);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(ltlg));
@@ -144,23 +150,27 @@ public class Maps extends FragmentActivity {
 
 
     public class GetLatLong extends AsyncTask<String, String, String> {
-        //declare variables
+        //declare variables & initialise
         String z = "";
         Boolean isSuccess = false;
         ArrayList<String> addressList = new ArrayList<>();
         ArrayList<String> orgList = new ArrayList<>();
 
         @Override
+        //background function to return employer address & organisatio title to arraylists
         protected String doInBackground(String... params) {
                 try {
+                    //verify db conn and set
                     Connection conn = dataConn.CONN();
                     if (conn == null) {
                         z = "Error in connection with SQL server.";
                     } else {
+                        //execute query
                         String query = "SELECT address, organisation FROM users WHERE role = 1";
                         Statement stmt = conn.createStatement();
                         ResultSet rs = stmt.executeQuery(query);
 
+                        //evaluating result set values in while loop
                         while (rs.next()) {
                             int i = 1;
                             ResultSetMetaData metadata = rs.getMetaData();
@@ -193,18 +203,22 @@ public class Maps extends FragmentActivity {
             //Post the string r which contains info about what has happened.
             Toast.makeText(getApplicationContext(), z, Toast.LENGTH_SHORT).show();
 
-            //setup googlemap
+            //setup googlemap for each record
             for(int i = 0; i < addressList.size(); i++){
                 String address = addressList.get(i);
 
+                //get latlng location via function
                 LatLng loc = getLocationFromAddress(address);
 
+                //get address title via org list
                 String addressText = orgList.get(i);
 
+                //seting up market options
                 MarkerOptions markerOptions = new MarkerOptions();
                 markerOptions.position(loc);
                 markerOptions.title(addressText);
 
+                //applying to map
                 mMap.addMarker(markerOptions);
             }
 
@@ -242,6 +256,7 @@ public class Maps extends FragmentActivity {
         }
     }
 
+    //default setup map to users home address, applying zoom and info window
     private void setUpMap() {
 
         LatLng latlng = getLocationFromAddress(user.getAddress());

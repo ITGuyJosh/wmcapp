@@ -88,7 +88,7 @@ public class Register extends AppCompatActivity {
 
     //AsyncTask for Adding Users
     public class AddUsers extends AsyncTask<String, String, String> {
-        //declare variables
+        //declare local variables
         String z = "";
         Boolean isSuccess = false;
         String username = editusername.getText().toString();
@@ -105,16 +105,19 @@ public class Register extends AppCompatActivity {
         Integer userid;
 
         @Override
+        //background task
         protected String doInBackground(String... params) {
+            //checking if details are added
             if (username.trim().equals("") || password.trim().equals("")|| cName.trim().equals("") || org.trim().equals("") || email.trim().equals("") || profile.trim().equals("") || role.trim().equals("")) {
                 z = "Please enter information to be added.";
             } else {
                 try {
+                    //verifying & setting up db connection
                     Connection conn = dataConn.CONN();
                     if (conn == null) {
                         z = "Error in connection with SQL server.";
                     } else {
-                        //refactor around this element
+                        //defining user role for login
                         if(role == "Student"){
                             uRole = 2;
                         } else {
@@ -145,8 +148,10 @@ public class Register extends AppCompatActivity {
         }
 
         protected void onPostExecute(String z) {
-            pbbar.setVisibility(View.GONE);  // Once everything is done set the visibility of the progress bar to invisible
-            Toast.makeText(Register.this, z, Toast.LENGTH_SHORT).show(); //Post the string r which contains info about what has happened.
+            // Once everything is done set the visibility of the progress bar to invisible
+            pbbar.setVisibility(View.GONE);
+            //Post the string r which contains info about what has happened.
+            Toast.makeText(Register.this, z, Toast.LENGTH_SHORT).show();
             //redirecting back to login
             Intent i = new Intent(getApplicationContext(), Login.class);
             startActivity(i);

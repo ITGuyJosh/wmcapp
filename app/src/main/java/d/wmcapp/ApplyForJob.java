@@ -90,7 +90,7 @@ public class ApplyForJob extends AppCompatActivity {
 
     }
 
-    //THIS NEEDS REFACTORING
+    //AsyncTask for listing jobs
     public class ListJobs extends AsyncTask<String, String, String> {
 
         String jobtitle;
@@ -100,7 +100,8 @@ public class ApplyForJob extends AppCompatActivity {
         String z = "";
 
         protected void onPreExecute(){
-            pbbar.setVisibility(View.VISIBLE); // Set the progress bar to visible to tell the user something is happening.
+            // Set the progress bar to visible to tell the user something is happening.
+            pbbar.setVisibility(View.VISIBLE);
         }
 
         protected void onPostExecute(String r){
@@ -110,8 +111,10 @@ public class ApplyForJob extends AppCompatActivity {
             txtSkills.setText(jobskills);
             txtDesc.setText(jobdesc);
 
-            pbbar.setVisibility(View.GONE);  // Once everything is done set the visibility of the progress bar to invisible
-            Toast.makeText(ApplyForJob.this, r, Toast.LENGTH_SHORT).show(); //Post the string r which contains info about what has happened.
+            // Once everything is done set the visibility of the progress bar to invisible
+            pbbar.setVisibility(View.GONE);
+            //Post the string r which contains info about what has happened.
+            Toast.makeText(ApplyForJob.this, r, Toast.LENGTH_SHORT).show();
 
         }
         protected String doInBackground(String... params) {
@@ -165,10 +168,12 @@ public class ApplyForJob extends AppCompatActivity {
         protected String doInBackground(String... params) {
 
             try{
+                //setting db conection & checking its successfuly
                 Connection conn = dataConn.CONN();
                 if(conn == null) {
                     message = "Error with server connection.";
                 }else {
+                    //querying db through query string
                     String query = "INSERT INTO job_applications (user_id, job_id, status) VALUES ('" + userid + "','" + jobid + "','1')";
                     PreparedStatement myQuery = conn.prepareStatement(query);
                     myQuery.executeUpdate();

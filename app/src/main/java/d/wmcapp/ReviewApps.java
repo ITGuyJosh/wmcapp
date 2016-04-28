@@ -131,13 +131,15 @@ public class ReviewApps extends AppCompatActivity {
                 }
             });
         }
+        //background task
         protected String doInBackground(String... params) {
             try{
+                //verifying & setting database conn
                 Connection conn = dataConn.CONN();
                 if (conn == null) {
                     z = "Error in connection with SQL server";
                 }else{
-                    //filter by only those that are currently open (when chester remote is open)
+                    //setting & executing query to return application info
                     String query = "SELECT DISTINCT U.id, JA.job_id, U.name, J.title FROM users AS U\n" +
                             "LEFT JOIN job_applications AS JA ON U.id = JA.user_id\n" +
                             "LEFT JOIN jobs AS J ON JA.job_id = J.id\n" +
@@ -145,6 +147,7 @@ public class ReviewApps extends AppCompatActivity {
                     PreparedStatement ps = conn.prepareStatement(query);
                     ResultSet rs= ps.executeQuery();
 
+                    //iterating through resultset, setting to hashmap and arraylist
                     while (rs.next()){
                         Map<String,String> datanum = new HashMap<String,String>();
                         datanum.put("A",rs.getString("id"));

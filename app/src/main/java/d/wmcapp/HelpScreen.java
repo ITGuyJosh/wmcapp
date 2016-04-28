@@ -14,6 +14,7 @@ import android.widget.VideoView;
 
 public class HelpScreen extends AppCompatActivity {
 
+    //declare variables
     Button btnWatch;
     Toolbar toolbar;
 

@@ -55,6 +55,7 @@ public class UserInfo extends AppCompatActivity {
         getUserInfo.execute();
 
         //Set button listeners
+        //run update asynctask as APPROVED
         btnAccept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,7 +63,7 @@ public class UserInfo extends AppCompatActivity {
                 updateApp.execute(2);
             }
         });
-
+        //run update asynctask as REJECTED
         btnReject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,7 +76,7 @@ public class UserInfo extends AppCompatActivity {
 
     //AsyncTask for Getting User Info to page
     public class GetUserInfo extends AsyncTask<String, String, String> {
-        //declare variables
+        //declare local variables
         String z = "";
         Boolean isSuccess = false;
         String name;
@@ -93,8 +94,10 @@ public class UserInfo extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String z) {
-            pbbar.setVisibility(View.GONE);  // Once everything is done set the visibility of the progress bar to invisible
-            Toast.makeText(getApplicationContext(), z, Toast.LENGTH_SHORT).show(); //Post the string r which contains info about what has happened.
+            // Once everything is done set the visibility of the progress bar to invisible
+            pbbar.setVisibility(View.GONE);
+            //Post the string r which contains info about what has happened.
+            Toast.makeText(getApplicationContext(), z, Toast.LENGTH_SHORT).show();
 
             //put information on page
             txtName.setText(name);
@@ -111,20 +114,24 @@ public class UserInfo extends AppCompatActivity {
         }
 
         @Override
+        //background task
         protected String doInBackground(String... params) {
+            // declare database variables
             PreparedStatement stmt;
             ResultSet rs;
                 try {
+                    //verify database conenction & set
                     Connection conn = dataConn.CONN();
                     if (conn == null) {
                         z = "Error in connection with SQL server.";
                     } else {
 
-                        //getting userid
+                        //getting user info query
                         String uQuery = "SELECT name, organisation, email, description, role FROM users WHERE id = '" + userid +"'";
                         stmt = conn.prepareStatement(uQuery);
                         rs = stmt.executeQuery();
 
+                        //evaluating resultset and setting them as variables for display
                         if(rs.next()){
                             name = rs.getString("name");
                             org = rs.getString("organisation");
@@ -171,21 +178,26 @@ public class UserInfo extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), z, Toast.LENGTH_SHORT).show();
         }
 
+        //background task
         @Override
         protected String doInBackground(Integer... params) {
+            //declare local db variables
             PreparedStatement stmt;
+            //get passed parameters
             status = params[0];
             try {
+                //checking db connction
                 Connection conn = dataConn.CONN();
                 if (conn == null) {
                     z = "Error in connection with SQL server.";
                 } else {
 
-                    //getting userid
+                    //updating applications based on passed parameter
                     String uQuery = "update job_applications SET status = '" + status +"' WHERE user_id = '" + userid +"' AND job_id = '" + jobid +"'";
                     stmt = conn.prepareStatement(uQuery);
                     stmt.executeUpdate();
 
+                    //modifying message to user based on query type
                     if(status == 2){
                         z = "User accepted.";
                         isSuccess = true;

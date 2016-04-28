@@ -65,8 +65,9 @@ public class UserStats extends AppCompatActivity {
         getStats.execute();
     }
 
-    //Async task for adding that the student applied for the job
+    //Async task for getting the users stats info and applying it to their respective polymorphic function
     public class ViewStats extends AsyncTask<String, String, String> {
+        //declare local variables
         String message = "";
         Boolean isSuccess = false;
         String stats;
@@ -93,11 +94,12 @@ public class UserStats extends AppCompatActivity {
         protected String doInBackground(String... params) {
 
             try{
+                //verify database connection
                 Connection conn = dataConn.CONN();
                 if(conn == null) {
                     message = "Error with server connection.";
                 }else {
-                    //get student information else get employer information
+                    //get student information via sql query
                     if(uRole == 2){
                         String query = "SELECT DISTINCT\n" +
                                 "    (SELECT COUNT(*) FROM job_applications WHERE user_id = '" + userid + "') AS AppliedJobsNo,\n" +
@@ -120,6 +122,7 @@ public class UserStats extends AppCompatActivity {
                         stats = stu.viewStats();
 
                     } else {
+                        //get employer information via sql query
                         String query = "SELECT DISTINCT\n" +
                                 "\t(SELECT COUNT(*) FROM jobs WHERE user_id = '" + userid + "') AS PostedJobsNo,\n" +
                                 "    (SELECT COUNT(*) FROM job_applications AS JA LEFT JOIN jobs AS J ON JA.job_id = J.id WHERE  J.user_id = '" + userid + "') AS AppsNo,\n" +

@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 public class EmployerMenu extends AppCompatActivity {
 
+    //delcare variables
     Button btnMngJobs, btnMngProfile,btnReviewApps, btnStats;
     Integer userid;
     Toolbar toolbar;
@@ -40,7 +41,7 @@ public class EmployerMenu extends AppCompatActivity {
         btnMngJobs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //opening registration activity
+                //opening job management activity
                 Intent i = new Intent(EmployerMenu.this, ManageJobs.class);
                 i.putExtra("userid", userid);
                 startActivity(i);
@@ -50,7 +51,7 @@ public class EmployerMenu extends AppCompatActivity {
         btnMngProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //opening registration activity
+                //opening profile management activity
                 Intent i = new Intent(EmployerMenu.this, ManageProfile.class);
                 i.putExtra("user", user);
                 startActivity(i);
@@ -60,7 +61,7 @@ public class EmployerMenu extends AppCompatActivity {
         btnReviewApps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //opening registration activity
+                //opening review apps activity
                 Intent i = new Intent(EmployerMenu.this, ReviewApps.class);
                 i.putExtra("empid", userid);
                 startActivity(i);
@@ -70,7 +71,7 @@ public class EmployerMenu extends AppCompatActivity {
         btnStats.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //opening registration activity
+                //opening stats activity
                 Intent i = new Intent(getApplicationContext(), UserStats.class);
                 i.putExtra("uRole", user.getRole());
                 i.putExtra("user", user);
